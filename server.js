@@ -1,20 +1,19 @@
-// server.js
-import express from "express";
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
-import multer from "multer";
-import cors from "cors";
-import path from "path";
-import fs from "fs";
-import http from "http";
-import { Server as SocketIOServer } from "socket.io";
-import { fileURLToPath } from "url";
+// server.js  (CommonJS version)
+
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const multer = require("multer");
+const cors = require("cors");
+const path = require("path");
+const fs = require("fs");
+const http = require("http");
+const { Server: SocketIOServer } = require("socket.io");
 
 // ==========================================
-// ESM __dirname / __filename fix
+// Setup Express App
 // ==========================================
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const app = express();
 
 // ==========================================
 // Ensure uploads folder exists
@@ -24,24 +23,18 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-// ==========================================
-// Setup Express App
-// ==========================================
-const app = express();
-
 app.use(cors());
 app.use(bodyParser.json());
-app.use("/uploads", express.static(uploadsDir)); // serve uploaded files
+app.use("/uploads", express.static(uploadsDir)); // serve image files
 
 // ==========================================
 // MongoDB Connect
-//  - use env variable in production
 // ==========================================
-const mongoUri =
+const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/oceanid_app";
 
 mongoose
-  .connect(mongoUri)
+  .connect(MONGODB_URI)
   .then(() => console.log("✅ MongoDB Connected (oceanid_app)"))
   .catch((err) => console.error("❌ Mongo Error:", err));
 
@@ -481,6 +474,7 @@ app.get("/climate/:id", async (req, res) => {
 
 // ==========================================
 // MESSAGE ROUTES (SMS CHAT)
+// supports both camelCase & snake_case body keys
 // ==========================================
 
 // POST /messages
@@ -510,7 +504,7 @@ app.post("/messages", async (req, res) => {
   }
 });
 
-// GET /messages/thread and /messages/conversation
+// GET /messages/thread and /messages/conversation for compatibility
 app.get(["/messages/thread", "/messages/conversation"], async (req, res) => {
   try {
     const userMobile = req.query.userMobile || req.query.user1;
