@@ -1,0 +1,3230 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Oceanid App</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#005A9C",
+              secondary: "#89CFF0",
+              "background-light": "#F7F9FC",
+              "background-dark": "#101622",
+              "text-light": "#333333",
+              "text-dark": "#F7F9FB",
+              "text-color": "#343A40",
+              "text-primary": "#1E293B",
+              "text-secondary": "#64748B",
+              "card-background-light": "#FFFFFF",
+              "card-background-dark": "#1E293B",
+              "border-light": "#E0E6EC",
+              "border-dark": "#2A3B4D",
+              "ocean-blue": "#0077B6",
+              "light-sky-blue": "#E6F4FF",
+              "dark-gray": "#333333",
+              "mid-gray": "#888888",
+              "neutral-gray": "#8A94A6",
+              /* Profile colors */
+              "surface-light": "#FFFFFF",
+              "surface-dark": "#1A2B48",
+              "text-primary-light": "#1A2B48",
+              "text-primary-dark": "#F0F4F8",
+              "text-secondary-light": "#8A94A6",
+              "text-secondary-dark": "#8A94A6",
+            },
+            fontFamily: {
+              display: ["Plus Jakarta Sans", "Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem",
+              lg: "1rem",
+              xl: "1.5rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+      .material-symbols-outlined.fill-1 {
+        font-variation-settings: "FILL" 1;
+      }
+      body {
+        min-height: max(884px, 100dvh);
+      }
+
+      /* Glass styles for call screen */
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .glass-btn {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+    </style>
+  </head>
+
+  <body class="bg-background-light dark:bg-background-dark font-display">
+    <div
+      class="relative mx-auto flex h-auto min-h-screen w-full max-w-lg flex-col bg-background-light dark:bg-background-dark group/design-root overflow-hidden"
+    >
+      <!-- ============== LOGIN VIEW ============== -->
+      <section
+        id="login-view"
+        class="flex-1 flex flex-col items-center justify-center px-4 py-8 min-h-0"
+      >
+        <div class="w-full max-w-md flex flex-col items-center">
+          <div class="mb-8 flex flex-col items-center">
+            <div
+              class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary"
+            >
+              <span
+                class="material-symbols-outlined text-white"
+                style="font-size: 40px"
+              >
+                waves
+              </span>
+            </div>
+            <h1
+              class="text-text-light dark:text-text-dark tracking-tight text-[32px] font-bold leading-tight text-center"
+            >
+              Oceanid
+            </h1>
+            <p
+              class="text-text-light/80 dark:text-text-dark/80 text-base font-normal leading-normal text-center pt-1"
+            >
+              Welcome Back
+            </p>
+          </div>
+
+          <div class="flex w-full flex-col gap-y-4">
+            <label class="flex flex-col w-full">
+              <p
+                class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2"
+              >
+                Full Name
+              </p>
+              <input
+                id="login-name"
+                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-white dark:bg-background-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dbdfe6] dark:border-white/20 bg-white h-14 placeholder:text-text-light/50 dark:placeholder:text-text-dark/50 p-[15px] text-base font-normal leading-normal"
+                placeholder="Enter your full name"
+              />
+            </label>
+
+            <label class="flex flex-col w-full">
+              <p
+                class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2"
+              >
+                Mobile Number
+              </p>
+              <input
+                id="login-mobile"
+                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-white dark:bg-background-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dbdfe6] dark:border-white/20 bg-white h-14 placeholder:text-text-light/50 dark:placeholder:text-text-dark/50 p-[15px] text-base font-normal leading-normal"
+                placeholder="Enter your mobile number"
+                type="tel"
+              />
+            </label>
+
+            <label class="flex flex-col w-full">
+              <div class="flex justify-between items-center pb-2">
+                <p
+                  class="text-text-light dark:text-text-dark text-base font-medium leading-normal"
+                >
+                  Password
+                </p>
+                <a
+                  class="text-primary text-sm font-medium hover:underline"
+                  href="#"
+                  >Forgot Password?</a
+                >
+              </div>
+              <div class="flex w-full flex-1 items-stretch">
+                <input
+                  id="login-password"
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-l-lg text-text-light dark:text-white dark:bg-background-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dbdfe6] dark:border-white/20 bg-white h-14 placeholder:text-text-light/50 dark:placeholder:text-text-dark/50 p-[15px] border-r-0 pr-2 text-base font-normal leading-normal"
+                  placeholder="Enter your password"
+                  type="password"
+                />
+                <div
+                  class="text-text-light/60 dark:text-text-dark/60 flex border border-[#dbdfe6] dark:border-white/20 bg-white dark:bg-background-dark items-center justify-center px-4 rounded-r-lg border-l-0"
+                >
+                  <span
+                    id="login-password-toggle"
+                    class="material-symbols-outlined cursor-pointer"
+                    >visibility</span
+                  >
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div class="w-full mt-8 flex flex-col items-center">
+            <button
+              id="login-btn"
+              type="button"
+              class="flex h-14 w-full items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary px-5 py-3 text-base font-semibold leading-normal text-white transition-colors duration-200 hover:bg-primary/90 active:bg-primary/80"
+            >
+              Login
+            </button>
+            <div
+              id="login-error"
+              class="w-full mt-3 text-sm text-red-600 dark:text-red-400 hidden text-center"
+            ></div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <p class="text-text-light/80 dark:text-text-dark/80 text-base">
+              Don't have an account?
+              <a
+                id="go-to-signup"
+                class="font-semibold text-primary hover:underline"
+                href="#"
+                >Sign Up</a
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== SIGNUP VIEW ============== -->
+      <section
+        id="signup-view"
+        class="hidden flex-1 flex flex-col items-center justify-center px-4 py-8 min-h-0"
+      >
+        <div
+          class="relative flex w-full max-w-md flex-col items-center justify-center"
+        >
+          <div class="flex flex-col items-center gap-2 pb-8">
+            <span class="material-symbols-outlined text-primary text-5xl"
+              >water</span
+            >
+            <h1 class="text-primary text-2xl font-bold tracking-tight">
+              Oceanid
+            </h1>
+          </div>
+
+          <h2
+            class="text-text-color dark:text-background-light text-[28px] font-bold tracking-tight text-center"
+          >
+            Create Your Account
+          </h2>
+          <p
+            class="text-text-color/80 dark:text-background-light/80 text-base font-normal leading-normal text-center pt-2 pb-6"
+          >
+            Join the Oceanid Community
+          </p>
+
+          <div class="w-full flex flex-col gap-4">
+            <label class="flex flex-col w-full">
+              <p
+                class="text-text-color dark:text-background-light/90 text-sm font-medium leading-normal pb-2"
+              >
+                Full Name
+              </p>
+              <input
+                id="signup-name"
+                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-color dark:text-background-light dark:bg-background-dark/80 focus:outline-0 border border-gray-300 dark:border-gray-600 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 text-base font-normal leading-normal"
+                placeholder="Enter your full name"
+              />
+            </label>
+
+            <label class="flex flex-col w-full">
+              <p
+                class="text-text-color dark:text-background-light/90 text-sm font-medium leading-normal pb-2"
+              >
+                Mobile Number
+              </p>
+              <input
+                id="signup-mobile"
+                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-color dark:text-background-light dark:bg-background-dark/80 focus:outline-0 border border-gray-300 dark:border-gray-600 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 text-base font-normal leading-normal"
+                placeholder="Enter your mobile number"
+                type="tel"
+              />
+            </label>
+
+            <div class="relative w-full">
+              <label class="flex flex-col w-full">
+                <p
+                  class="text-text-color dark:text-background-light/90 text-sm font-medium leading-normal pb-2"
+                >
+                  Password
+                </p>
+                <input
+                  id="signup-password"
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-color dark:text-background-light dark:bg-background-dark/80 focus:outline-0 border border-gray-300 dark:border-gray-600 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 px-4 pr-10 text-base font-normal leading-normal"
+                  placeholder="Enter your password"
+                  type="password"
+                />
+              </label>
+              <button
+                id="signup-password-toggle"
+                class="absolute bottom-3 right-3 text-text-color/60 dark:text-background-light/60"
+                type="button"
+              >
+                <span
+                  class="material-symbols-outlined text-xl"
+                  data-icon="visibility_off"
+                  >visibility_off</span
+                >
+              </button>
+            </div>
+          </div>
+
+          <button
+            id="signup-btn"
+            type="button"
+            class="flex items-center justify-center w-full h-12 px-6 mt-6 rounded-lg bg-primary text-white text-base font-bold leading-normal transition-colors hover:bg-primary/90"
+          >
+            Sign Up
+          </button>
+
+          <div
+            id="signup-error"
+            class="w-full mt-3 text-sm text-red-600 dark:text-red-400 hidden text-center"
+          ></div>
+          <div
+            id="signup-success"
+            class="w-full mt-1 text-sm text-green-600 dark:text-green-400 hidden text-center"
+          ></div>
+
+          <p
+            class="text-text-color/80 dark:text-background-light/80 text-center text-sm mt-8"
+          >
+            Already have an account?
+            <a
+              id="go-to-login"
+              class="font-bold text-secondary hover:underline"
+              href="#"
+              >Sign In</a
+            >
+          </p>
+        </div>
+      </section>
+
+      <!-- ============== HOME VIEW ============== -->
+      <section id="home-view" class="hidden flex-1 flex flex-col min-h-0">
+        <!-- Top App Bar -->
+        <div
+          class="sticky top-0 z-10 flex items-center justify-between border-b border-border-light bg-card-background-light p-4 pb-3 backdrop-blur-sm dark:border-border-dark dark:bg-card-background-dark"
+        >
+          <div class="flex size-12 shrink-0 items-center">
+            <span class="material-symbols-outlined text-primary text-3xl">
+              waves
+            </span>
+          </div>
+          <h1
+            class="flex-1 text-xl font-bold leading-tight tracking-[-0.015em] text-[#111318] dark:text-white"
+          >
+            Oceanid
+          </h1>
+          <div class="flex w-12 items-center justify-end">
+            <button
+              id="home-profile-btn"
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-[#f0f2f4] dark:bg-[#1C2431] text-[#111318] dark:text-white"
+              type="button"
+              title="Profile"
+            >
+              <span class="material-symbols-outlined text-2xl">
+                account_circle
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Content Feed (fit to screen) -->
+        <main id="home-main" class="flex-1 min-h-0 overflow-y-auto pb-24">
+          <div id="home-feed" class="w-full flex flex-col gap-3"></div>
+        </main>
+      </section>
+
+      <!-- ============== ALERTS VIEW ============== -->
+      <section id="alerts-view" class="hidden flex-1 flex flex-col min-h-0">
+        <header
+          class="flex shrink-0 items-center bg-card-background-light dark:bg-card-background-dark p-4 justify-between border-b border-border-light dark:border-border-dark"
+        >
+          <div class="flex size-12 shrink-0 items-center"></div>
+          <h1
+            class="text-text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center"
+          >
+            Alerts
+          </h1>
+          <div class="flex w-12 items-center justify-end">
+            <span
+              class="material-symbols-outlined text-2xl text-text-primary dark:text-white"
+              >map</span
+            >
+          </div>
+        </header>
+
+        <!-- Alerts list as grouped bars, fit to screen -->
+        <main class="flex-1 min-h-0 overflow-y-auto p-4 pb-24">
+          <div id="alerts-list" class="grid grid-cols-1 gap-3"></div>
+        </main>
+      </section>
+
+      <!-- ============== UPLOAD VIEW ============== -->
+      <section id="upload-view" class="hidden flex-1 flex flex-col min-h-0">
+        <header
+          class="flex items-center bg-white dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10 border-b border-border-light dark:border-border-dark"
+        >
+          <div class="flex size-12 shrink-0 items-center"></div>
+          <h1
+            class="text-dark-gray dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center"
+          >
+            Upload Report
+          </h1>
+          <div class="flex size-12 shrink-0 items-center"></div>
+        </header>
+
+        <!-- Upload view body, fit to screen -->
+        <main class="flex-1 min-h-0 overflow-y-auto pb-24">
+          <div class="flex flex-col gap-4 p-4">
+            <div
+              class="flex flex-col items-center gap-6 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 px-6 py-10"
+            >
+              <span
+                class="material-symbols-outlined text-mid-gray dark:text-gray-400 text-5xl"
+                >add_a_photo</span
+              >
+              <div
+                class="flex max-w-[480px] flex-col items-center gap-2 text-center"
+              >
+                <p
+                  class="text-dark-gray dark:text-white text-base font-medium leading-tight tracking-[-0.015em]"
+                >
+                  Add a photo of the incident
+                </p>
+                <p
+                  class="text-mid-gray dark:text-gray-400 text-sm font-normal leading-normal"
+                >
+                  Tap to upload a photo
+                </p>
+              </div>
+              <input
+                id="upload-photo"
+                type="file"
+                accept="image/*"
+                class="mt-2 text-sm text-mid-gray dark:text-gray-400"
+              />
+            </div>
+
+            <div class="flex max-w-[480px] flex-wrap items-end">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p
+                  class="text-dark-gray dark:text-white text-base font-medium leading-normal pb-2"
+                >
+                  Cause of Action
+                </p>
+                <select
+                  id="upload-cause"
+                  class="form-select flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-dark-gray dark:text-white focus:outline-0 focus:ring-0 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:border-ocean-blue dark:focus:border-ocean-blue h-14 placeholder:text-mid-gray dark:placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
+                >
+                  <option value="">e.g., Oil Spill, Plastic Waste</option>
+                  <option>Oil Spill</option>
+                  <option>Plastic Waste</option>
+                  <option>Illegal Fishing</option>
+                  <option>Coral Bleaching</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="flex max-w-[480px] flex-wrap items-end">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p
+                  class="text-dark-gray dark:text-white text-base font-medium leading-normal pb-2"
+                >
+                  Date of Incident
+                </p>
+                <div class="relative flex w-full flex-1 items-stretch">
+                  <input
+                    id="upload-date"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-dark-gray dark:text-white focus:outline-0 focus:ring-0 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:border-ocean-blue dark:focus:border-ocean-blue h-14 placeholder:text-mid-gray dark:placeholder:text-gray-400 pl-[15px] pr-12 text-base font-normal leading-normal"
+                    placeholder="YYYY-MM-DD"
+                    type="text"
+                  />
+                  <div
+                    class="absolute right-0 top-0 flex h-full items-center justify-center px-3 text-mid-gray dark:text-gray-400"
+                  >
+                    <span class="material-symbols-outlined text-2xl"
+                      >calendar_today</span
+                    >
+                  </div>
+                </div>
+              </label>
+            </div>
+
+            <div class="flex max-w-[480px] flex-wrap items-end">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p
+                  class="text-dark-gray dark:text-white text-base font-medium leading-normal pb-2"
+                >
+                  Location
+                </p>
+                <div class="relative flex w-full flex-1 items-stretch">
+                  <input
+                    id="upload-location"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-dark-gray dark:text-white focus:outline-0 focus:ring-0 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:border-ocean-blue dark:focus:border-ocean-blue h-14 placeholder:text-mid-gray dark:placeholder:text-gray-400 pl-12 pr-[15px] text-base font-normal leading-normal"
+                    placeholder="Enter location"
+                    type="text"
+                  />
+                  <div
+                    class="absolute left-0 top-0 flex h-full items-center justify-center px-3 text-mid-gray dark:text-gray-400"
+                  >
+                    <span class="material-symbols-outlined text-2xl"
+                      >location_on</span
+                    >
+                  </div>
+                </div>
+              </label>
+            </div>
+
+            <div class="flex max-w-[480px] flex-wrap items-end">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p
+                  class="text-dark-gray dark:text-white text-base font-medium leading-normal pb-2"
+                >
+                  Description
+                </p>
+                <textarea
+                  id="upload-description"
+                  class="form-textarea flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-dark-gray dark:text-white focus:outline-0 focus:ring-0 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:border-ocean-blue dark:focus:border-ocean-blue min-h-36 placeholder:text-mid-gray dark:placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
+                  placeholder="Provide a detailed description of the incident..."
+                ></textarea>
+              </label>
+            </div>
+
+            <button
+              id="upload-btn"
+              class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-14 px-4 bg-ocean-blue text-white text-base font-bold leading-normal tracking-[0.015em] w-full mt-4"
+              type="button"
+            >
+              <span class="truncate">Verify &amp; Post</span>
+            </button>
+
+            <div
+              id="upload-status"
+              class="w-full mt-3 text-sm text-center hidden"
+            ></div>
+          </div>
+        </main>
+      </section>
+
+      <!-- ============== MESSAGES VIEW (SMS LIST) ============== -->
+      <section id="messages-view" class="hidden flex-1 flex flex-col min-h-0">
+        <div
+          class="sticky top-0 z-10 flex flex-col bg-background-light dark:bg-background-dark"
+        >
+          <div class="flex items-center p-4 pb-2 justify-between">
+            <div class="flex size-12 shrink-0 items-center"></div>
+            <h2
+              class="text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center text-zinc-900 dark:text-zinc-100"
+            >
+              Messages
+            </h2>
+            <div class="flex w-12 items-center justify-end">
+              <button
+                class="flex cursor-pointer items-center justify-center rounded-full h-12 bg-transparent text-zinc-900 dark:text-zinc-100"
+              >
+                <span class="material-symbols-outlined">search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="messages-list"
+          class="flex flex-1 flex-col gap-1 px-2 pt-2 pb-24 overflow-y-auto"
+        >
+          <!-- Filled by JS with recent threads -->
+        </div>
+
+        <div class="absolute bottom-24 right-4 z-20">
+          <button
+            id="sms-add-btn"
+            class="flex cursor-pointer items-center justify-center rounded-full h-14 w-14 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg"
+          >
+            <span class="material-symbols-outlined text-3xl">add</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============== ALL USERS DIRECTORY ============== -->
+      <section
+        id="users-view"
+        class="hidden fixed inset-0 z-30 flex flex-col bg-background-light dark:bg-background-dark"
+      >
+        <div
+          class="relative flex h-screen w-full flex-col font-display overflow-x-hidden"
+        >
+          <!-- Top App Bar -->
+          <div
+            class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10"
+          >
+            <button
+              id="users-back-btn"
+              class="flex size-12 shrink-0 items-center justify-start text-slate-800 dark:text-white -ml-2"
+              type="button"
+            >
+              <span class="material-symbols-outlined">arrow_back_ios_new</span>
+            </button>
+            <h2
+              class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center"
+            >
+              All Users
+            </h2>
+            <div class="flex size-12 shrink-0 items-center"></div>
+          </div>
+
+          <!-- Search Bar -->
+          <div
+            class="px-4 py-3 bg-background-light dark:bg-background-dark sticky top-[64px] z-10"
+          >
+            <label class="flex flex-col min-w-40 h-12 w-full">
+              <div
+                class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm"
+              >
+                <div
+                  class="text-slate-500 dark:text-slate-400 flex border-none bg-white dark:bg-slate-800 items-center justify-center pl-4 rounded-l-xl border-r-0"
+                >
+                  <span class="material-symbols-outlined">search</span>
+                </div>
+                <input
+                  id="users-search"
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-xl text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-white dark:bg-slate-800 h-full placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 pl-2 text-base font-normal leading-normal"
+                  placeholder="Search by name..."
+                />
+              </div>
+            </label>
+          </div>
+
+          <!-- Users List -->
+          <div
+            id="users-list"
+            class="flex flex-col gap-1 px-4 pb-4 pt-2 overflow-y-auto flex-1"
+          >
+            <!-- User items injected by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== CHAT VIEW (FULLSCREEN) ============== -->
+      <section
+        id="chat-view"
+        class="hidden fixed inset-0 z-40 flex flex-col bg-background-light dark:bg-background-dark"
+      >
+        <!-- Top App Bar -->
+        <div
+          class="flex items-center bg-background-light dark:bg-[#101c22]/80 dark:backdrop-blur-sm p-4 pb-3 justify-between border-b border-white/5 shadow-sm sticky top-0 z-10"
+        >
+          <div class="flex items-center gap-3">
+            <button
+              id="chat-back-btn"
+              class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
+              type="button"
+            >
+              <span class="material-symbols-outlined text-black dark:text-white"
+                >arrow_back_ios_new</span
+              >
+            </button>
+            <div
+              id="chat-header-avatar"
+              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10"
+            ></div>
+            <div class="flex flex-col">
+              <h2
+                id="chat-header-name"
+                class="text-black dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]"
+              >
+                -
+              </h2>
+              <p
+                id="chat-header-number"
+                class="text-xs text-slate-500 dark:text-slate-300"
+              ></p>
+            </div>
+          </div>
+          <div class="flex items-center justify-end gap-2">
+            <!-- Call button hooked to WebRTC -->
+            <button
+              id="chat-call-btn"
+              class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-transparent text-black dark:text-white text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
+              type="button"
+            >
+              <span class="material-symbols-outlined">call</span>
+            </button>
+            <button
+              class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-transparent text-black dark:text-white text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
+              type="button"
+            >
+              <span class="material-symbols-outlined">videocam</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4">
+          <!-- Messages injected by JS -->
+        </div>
+
+        <!-- Composer -->
+        <div
+          class="flex items-center px-4 py-3 gap-3 border-t border-white/5 bg-background-light dark:bg-background-dark sticky bottom-0"
+        >
+          <label class="flex flex-col min-w-40 h-12 flex-1">
+            <div class="flex w-full flex-1 items-stretch rounded-full h-full">
+              <div
+                class="flex border-none bg-gray-200 dark:bg-[#283339] items-center justify-center pl-4 rounded-l-full"
+              >
+                <button
+                  class="flex items-center justify-center p-1.5 text-gray-500 dark:text-[#9db0b9]"
+                  type="button"
+                >
+                  <span class="material-symbols-outlined">add_circle</span>
+                </button>
+              </div>
+              <input
+                id="chat-input"
+                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-black dark:text-white focus:outline-0 focus:ring-0 border-none bg-gray-200 dark:bg-[#283339] focus:border-none h-full placeholder:text-gray-500 placeholder:dark:text-[#9db0b9] px-2 text-base font-normal leading-normal"
+                placeholder="Type a message..."
+              />
+              <div
+                class="flex border-none bg-gray-200 dark:bg-[#283339] items-center justify-center pr-4 rounded-r-full"
+              >
+                <button
+                  class="flex items-center justify-center p-1.5 text-gray-500 dark:text-[#9db0b9]"
+                  type="button"
+                >
+                  <span class="material-symbols-outlined">mood</span>
+                </button>
+              </div>
+            </div>
+          </label>
+          <button
+            id="chat-send-btn"
+            class="min-w-[48px] h-12 w-12 flex-shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary text-white text-sm font-medium leading-normal flex"
+            type="button"
+          >
+            <span class="material-symbols-outlined">send</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============== PROFILE VIEW ============== -->
+      <section id="profile-view" class="hidden flex-1 flex flex-col min-h-0">
+        <div
+          class="flex items-center bg-surface-light dark:bg-surface-dark p-4 pb-3 justify-between sticky top-0 z-10 border-b border-border-light dark:border-border-dark"
+        >
+          <button
+            id="profile-back-btn"
+            class="text-text-primary-light dark:text-text-primary-dark flex size-10 shrink-0 items-center justify-center"
+            type="button"
+          >
+            <span class="material-symbols-outlined text-2xl"
+              >arrow_back_ios_new</span
+            >
+          </button>
+          <h2
+            class="text-text-primary-light dark:text-text-primary-dark text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center"
+          >
+            Profile
+          </h2>
+          <div class="flex size-10 shrink-0"></div>
+        </div>
+        <div class="flex flex-1 flex-col justify-between">
+          <div class="flex-grow">
+            <div
+              class="flex p-4 @container bg-surface-light dark:bg-surface-dark pt-8 pb-8"
+            >
+              <div class="flex w-full flex-col gap-4 items-center">
+                <div class="relative flex gap-4 flex-col items-center">
+                  <div
+                    id="profile-photo"
+                    class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-32 w-32 border-4 border-white dark:border-surface-dark shadow-md"
+                    data-alt="Profile picture"
+                    style="background-image: url('https://ui-avatars.com/api/?name=Oceanid+User&background=007BFF&color=fff');"
+                  ></div>
+                  <input
+                    id="profile-photo-input"
+                    type="file"
+                    accept="image/*"
+                    class="hidden"
+                  />
+                  <button
+                    id="profile-photo-edit-btn"
+                    class="absolute bottom-0 right-0 flex h-9 w-9 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary text-white shadow-lg"
+                    type="button"
+                  >
+                    <span class="material-symbols-outlined text-xl">edit</span>
+                  </button>
+                </div>
+                <div class="flex flex-col items-center justify-center pt-2">
+                  <p
+                    id="profile-name-title"
+                    class="text-text-primary-light dark:text-text-primary-dark text-[22px] font-bold leading-tight tracking-[-0.015em] text-center"
+                  >
+                    User
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-4 py-3">
+              <p
+                class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium leading-normal pb-2 px-1"
+              >
+                USER INFORMATION
+              </p>
+            </div>
+
+            <div
+              class="flex flex-col gap-px overflow-hidden rounded-lg border border-border-light dark:border-border-dark mx-4 bg-border-light dark:bg-border-dark"
+            >
+              <label
+                class="flex flex-col flex-1 bg-surface-light dark:bg-surface-dark p-4"
+              >
+                <p
+                  class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium leading-normal pb-1"
+                >
+                  Name
+                </p>
+                <div class="flex w-full flex-1 items-center gap-2">
+                  <input
+                    id="profile-name-input"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-text-primary-light dark:text-text-primary-dark focus:outline-0 focus:ring-0 border-0 bg-transparent h-10 placeholder:text-text-secondary-light dark:placeholder:text-text-secondary-dark p-0 text-base font-normal leading-normal"
+                    value=""
+                    placeholder="Your name"
+                  />
+                  <div class="text-primary flex items-center justify-center">
+                    <span class="material-symbols-outlined text-2xl">edit</span>
+                  </div>
+                </div>
+              </label>
+              <label
+                class="flex flex-col flex-1 bg-surface-light dark:bg-surface-dark p-4"
+              >
+                <p
+                  class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium leading-normal pb-1"
+                >
+                  Mobile Number
+                </p>
+                <div class="flex w-full flex-1 items-center">
+                  <input
+                    id="profile-mobile-input"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-text-primary-light dark:text-text-primary-dark focus:outline-0 focus:ring-0 border-0 bg-transparent h-10 placeholder:text-text-secondary-light dark:placeholder:text-text-secondary-dark p-0 text-base font-normal leading-normal"
+                    value=""
+                    readonly
+                  />
+                </div>
+              </label>
+            </div>
+
+            <div class="flex px-4 pt-4">
+              <button
+                id="profile-save-btn"
+                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 flex-1 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] gap-2"
+                type="button"
+              >
+                <span class="material-symbols-outlined">save</span>
+                <span class="truncate">Save Changes</span>
+              </button>
+            </div>
+
+            <div
+              id="profile-status"
+              class="px-4 pt-2 text-sm text-center hidden"
+            ></div>
+          </div>
+
+          <div class="flex px-4 py-6 mt-4">
+            <button
+              id="profile-logout-btn"
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-5 flex-1 bg-primary/10 dark:bg-primary/20 text-[#E53935] dark:text-[#F48A88] text-base font-bold leading-normal tracking-[0.015em] gap-2"
+              type="button"
+            >
+              <span class="material-symbols-outlined">logout</span>
+              <span class="truncate">Logout</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== CALL LOG VIEW ============== -->
+      <section id="call-view" class="hidden flex-1 flex flex-col min-h-0">
+        <main class="flex-1 pb-24">
+          <!-- Top bar -->
+          <div
+            class="flex flex-col gap-2 bg-background-light dark:bg-background-dark p-4 pb-2 sticky top-0 z-10"
+          >
+            <div class="flex items-center h-12 justify-between">
+              <div class="flex size-12 shrink-0 items-center"></div>
+              <div class="flex w-12 items-center justify-end">
+                <!-- (Optional) edit button -->
+                <button
+                  class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-transparent text-slate-900 dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
+                >
+                  <span
+                    class="material-symbols-outlined text-slate-900 dark:text-white"
+                    style="font-size: 24px"
+                    >edit_square</span
+                  >
+                </button>
+              </div>
+            </div>
+            <p
+              class="text-slate-900 dark:text-white tracking-tight text-[28px] font-bold leading-tight text-center"
+            >
+              Recents
+            </p>
+          </div>
+
+          <!-- Search -->
+          <div class="px-4 py-3">
+            <label class="flex flex-col min-w-40 h-12 w-full">
+              <div class="flex w-full flex-1 items-stretch rounded-full h-full">
+                <div
+                  class="text-slate-500 dark:text-slate-400 flex border-none bg-slate-200 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-full border-r-0"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 24px"
+                    >search</span
+                  >
+                </div>
+                <input
+                  id="call-search"
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-full text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-slate-200 dark:bg-slate-800 focus:border-none h-full placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                  placeholder="Search"
+                  value=""
+                />
+              </div>
+            </label>
+          </div>
+
+          <!-- Filter chips -->
+          <div class="flex px-4 py-3">
+            <div
+              class="flex h-10 flex-1 items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 p-1"
+            >
+              <label
+                class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-white dark:has-[:checked]:bg-primary has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-primary dark:has-[:checked]:text-white text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal"
+              >
+                <span class="truncate">All</span>
+                <input
+                  checked
+                  class="invisible w-0"
+                  name="call-filter"
+                  type="radio"
+                  value="All"
+                />
+              </label>
+              <label
+                class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-white dark:has-[:checked]:bg-primary has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-primary dark:has-[:checked]:text-white text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal"
+              >
+                <span class="truncate">Missed</span>
+                <input
+                  class="invisible w-0"
+                  name="call-filter"
+                  type="radio"
+                  value="Missed"
+                />
+              </label>
+            </div>
+          </div>
+
+          <!-- Dial toggle button (center) -->
+          <div class="flex justify-center px-4">
+            <button
+              id="call-dial-toggle"
+              type="button"
+              class="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-white shadow-md"
+            >
+              <span class="material-symbols-outlined">dialpad</span>
+            </button>
+          </div>
+
+          <!-- Dialpad -->
+          <div id="call-dialpad" class="hidden px-8 pt-4 pb-2">
+            <div
+              class="flex flex-col items-center rounded-2xl bg-slate-100 dark:bg-slate-900/60 px-4 py-3 gap-3"
+            >
+              <input
+                id="dial-input"
+                class="w-full text-center bg-transparent border-b border-slate-300 dark:border-slate-700 text-xl tracking-[0.2em] pb-1 outline-none text-slate-900 dark:text-white"
+                placeholder="Enter number"
+                type="tel"
+                readonly
+              />
+              <div
+                class="grid grid-cols-3 gap-3 pt-2 text-slate-900 dark:text-white"
+              >
+                <!-- Row 1 -->
+                <button
+                  type="button"
+                  class="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold bg-white dark:bg-slate-800 shadow-sm"
+                  data-digit="1"
+                >
+                  1
+                </button>
+                <button
+                  type="button"
+                  class="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold bg-white dark:bg-slate-800 shadow-sm"
+                  data-digit="2"
+                >
+                  2
+                </button>
+                <button
+                  type="button"
+                  class="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold bg-white dark:bg-slate-800 shadow-sm"
+                  data-digit="3"
+                >
+                  3
+                </button>
+                <!-- Row 2 -->
+                <button
+                  type="button"
+                  class="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold bg-white dark:bg-slate-800 shadow-sm"
+                  data-digit="4"
+                >
+                  4
+                </button>
+                <button
+                  type="button"
+                  class="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold bg-white dark:bg-slate-800 shadow-sm"
+                  data-digit="5"
+                >
+                  5
+                </button>
+                <button
+                  type="button"
+                  class="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold bg-white dark:bg-slate-800 shadow-sm"
+                  data-digit="6"
+                >
+                  6
+                </button>
+                <!-- Row 3 -->
+                <button
+                  type="button"
+                  class="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold bg-white dark:bg-slate-800 shadow-sm"
+                  data-digit="7"
+                >
+                  7
+                </button>
+                <button
+                  type="button"
+                  class="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold bg-white dark:bg-slate-800 shadow-sm"
+                  data-digit="8"
+                >
+                  8
+                </button>
+                <button
+                  type="button"
+                  class="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold bg-white dark:bg-slate-800 shadow-sm"
+                  data-digit="9"
+                >
+                  9
+                </button>
+                <!-- Row 4 -->
+                <button
+                  type="button"
+                  class="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold bg-white dark:bg-slate-800 shadow-sm"
+                  data-digit="*"
+                >
+                  *
+                </button>
+                <button
+                  type="button"
+                  class="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold bg-white dark:bg-slate-800 shadow-sm"
+                  data-digit="0"
+                >
+                  0
+                </button>
+                <button
+                  type="button"
+                  class="h-12 w-12 rounded-full flex items-center justify-center text-lg font-semibold bg-white dark:bg-slate-800 shadow-sm"
+                  data-digit="#"
+                >
+                  #
+                </button>
+              </div>
+              <div class="flex items-center gap-6 pt-3">
+                <button
+                  id="dial-backspace"
+                  type="button"
+                  class="flex items-center justify-center h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200"
+                >
+                  <span class="material-symbols-outlined">backspace</span>
+                </button>
+                <button
+                  id="dial-call-btn"
+                  type="button"
+                  class="flex items-center justify-center h-12 w-12 rounded-full bg-green-500 text-white shadow-md"
+                >
+                  <span class="material-symbols-outlined">call</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Call list (static examples) -->
+          <div id="call-list" class="flex flex-col">
+            <div
+              class="flex items-center gap-4 bg-background-light dark:bg-background-dark px-4 min-h-[72px] py-2 justify-between"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-14"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAfMj1pLXHSls2p-uHUFqguWwGEw4F4CLf1FUdW__CXzZmFgNSuZpTx2eajj5XB-pD_hui1qdd4ncA6iDtBmXNM72qxnPA2it_e_BJsoTgk8vDaZosRtxhXsZr0Z0qMgxUnxuutuigrzB4uHKXYFYv9CxnkkHn-OLv4CfOIiqJkgVgfAtgHHy-2XzW6YVGQI-91w_W-zR2uxF-uFf80Q-_HFmC56VNEFfYto2qn4CRSbJrXLUi2Y_QGznWk6gnVvU__Wj3No_K6lVE");'
+                ></div>
+                <div class="flex flex-col justify-center">
+                  <p
+                    class="text-slate-900 dark:text-white text-base font-medium leading-normal line-clamp-1"
+                  >
+                    Jane Cooper
+                  </p>
+                  <div class="flex items-center gap-1">
+                    <span
+                      class="material-symbols-outlined text-slate-500 dark:text-slate-400"
+                      style="font-size: 16px"
+                      >call_made</span
+                    >
+                    <p
+                      class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal line-clamp-2"
+                    >
+                      Outgoing
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="shrink-0 flex items-center gap-4">
+                <p
+                  class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal"
+                >
+                  11:45 AM
+                </p>
+                <div class="text-primary flex size-7 items-center justify-center">
+                  <span class="material-symbols-outlined">info</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="flex items-center gap-4 bg-background-light dark:bg-background-dark px-4 min-h-[72px] py-2 justify-between"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-14"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCHx_7i3qNeXuqU7d-wikuWVkaaeDEp4v1JPhuBQs3r-hyN7JTboq3wDt3vQuPou4Qy0mPg9nGAWLTW0z0uEqbmrl93rNmlCZu3z1qawWdB53HnNkfERJ_QUPz-Mky_o7E1246eRSI0RGftU1O6HQBqm-Q3GFOENSdCmvDemjiXO-ocf2HElnwaajXiQlL5hcIpqaHcGN-zUPfmLKQlQYrN659U6e0BPc6w5ROSZ-pUk8SoyqPYf8n1l7HN9KmCckKsXGm3jMJU0hE");'
+                ></div>
+                <div class="flex flex-col justify-center">
+                  <p
+                    class="text-red-500 text-base font-medium leading-normal line-clamp-1"
+                  >
+                    John Smith
+                  </p>
+                  <div class="flex items-center gap-1">
+                    <span
+                      class="material-symbols-outlined text-red-500"
+                      style="font-size: 16px"
+                      >call_missed</span
+                    >
+                    <p
+                      class="text-red-500 text-sm font-normal leading-normal line-clamp-2"
+                    >
+                      Missed
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="shrink-0 flex items-center gap-4">
+                <p
+                  class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal"
+                >
+                  10:35 AM
+                </p>
+                <div class="text-primary flex size-7 items-center justify-center">
+                  <span class="material-symbols-outlined">info</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="flex items-center gap-4 bg-background-light dark:bg-background-dark px-4 min-h-[72px] py-2 justify-between"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-14 flex items-center justify-center bg-slate-300 dark:bg-slate-700"
+                >
+                  <span
+                    class="text-xl font-bold text-slate-600 dark:text-slate-300"
+                    >W</span
+                  >
+                </div>
+                <div class="flex flex-col justify-center">
+                  <p
+                    class="text-slate-900 dark:text-white text-base font-medium leading-normal line-clamp-1"
+                  >
+                    Wade Warren
+                  </p>
+                  <div class="flex items-center gap-1">
+                    <span
+                      class="material-symbols-outlined text-slate-500 dark:text-slate-400"
+                      style="font-size: 16px"
+                      >call_received</span
+                    >
+                    <p
+                      class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal line-clamp-2"
+                    >
+                      Incoming
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="shrink-0 flex items-center gap-4">
+                <p
+                  class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal"
+                >
+                  Yesterday
+                </p>
+                <div class="text-primary flex size-7 items-center justify-center">
+                  <span class="material-symbols-outlined">info</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="flex items-center gap-4 bg-background-light dark:bg-background-dark px-4 min-h-[72px] py-2 justify-between"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-14"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCTIdTc7rDitT0IQMZBBzZXfrCl9d26d9x9KrZkAxL1-qZpJ-K2V_OY0tEbnTQJ_paarUJ_-pPUFEpeHZQd8VNP9Jwa6UCPW-1OSUl6DrtTeT76Hoa546ldWxNMXLJb7D3TlCMnq2Lr-_IVpsf4-NfyCbe155ImFgyPHMU5o8fUfsPO58xMWOi2g4WEZ-LR14LCEZO3_x5Hc0nLUuRIghknKJ4BONcN-29E8tg5F4V4KwB-TpZEs9UFgxhEfIFsahSJbNZFyhka1os");'
+                ></div>
+                <div class="flex flex-col justify-center">
+                  <p
+                    class="text-slate-900 dark:text-white text-base font-medium leading-normal line-clamp-1"
+                  >
+                    Jenny Wilson
+                  </p>
+                  <div class="flex items-center gap-1">
+                    <span
+                      class="material-symbols-outlined text-slate-500 dark:text-slate-400"
+                      style="font-size: 16px"
+                      >call_made</span
+                    >
+                    <p
+                      class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal line-clamp-2"
+                    >
+                      Outgoing
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="shrink-0 flex items-center gap-4">
+                <p
+                  class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal"
+                >
+                  Yesterday
+                </p>
+                <div class="text-primary flex size-7 items-center justify-center">
+                  <span class="material-symbols-outlined">info</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="flex items-center gap-4 bg-background-light dark:bg-background-dark px-4 min-h-[72px] py-2 justify-between"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-14"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDzLy8pd-3wWuxJfvq6OXBNA2b-7c3rIAfLAOJb3CeWg-GGZtquaN8lz60KBWTKG7qcWGod5oIJ-8unmcrN_Q4v963y-FHixtSce7jYyLa2co5Q71INg1g0rp7v_hDEdDNV6xENR-gmzRztAeceH4WVFZj2rx3KHbcpvyKUqR-wn1jdGtuf-MkVL6koULdULUphvZDWPz00KhTJDMhK-_3DjOY6tZf2fl0L48uE7myoXzP0BgvpfDWFUs_axRFa8QggAujUVVXX7Gc");'
+                ></div>
+                <div class="flex flex-col justify-center">
+                  <p
+                    class="text-red-500 text-base font-medium leading-normal line-clamp-1"
+                  >
+                    (201) 555-0123
+                  </p>
+                  <div class="flex items-center gap-1">
+                    <span
+                      class="material-symbols-outlined text-red-500"
+                      style="font-size: 16px"
+                      >call_missed</span
+                    >
+                    <p
+                      class="text-red-500 text-sm font-normal leading-normal line-clamp-2"
+                    >
+                      Missed
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="shrink-0 flex items-center gap-4">
+                <p
+                  class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal"
+                >
+                  2 days ago
+                </p>
+                <div class="text-primary flex size-7 items-center justify-center">
+                  <span class="material-symbols-outlined">info</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        <!-- Floating Add Call Button: opens All Users like SMS page -->
+        <button
+          id="call-add-btn"
+          class="fixed bottom-28 right-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg"
+          type="button"
+        >
+          <span class="material-symbols-outlined" style="font-size: 28px"
+            >add</span
+          >
+        </button>
+      </section>
+
+      <!-- ============== CALL SCREEN (WEBRTC) ============== -->
+      <section
+        id="call-screen-view"
+        class="hidden fixed inset-0 z-50 flex flex-col overflow-hidden bg-gradient-to-b from-[#0f172a] via-[#1e3a8a] to-[#0f172a] text-white"
+      >
+        <!-- Ambient Background Effects -->
+        <div
+          class="absolute top-[-20%] right-[-10%] h-[500px] w-[500px] rounded-full bg-primary/20 blur-[100px] pointer-events-none"
+        ></div>
+        <div
+          class="absolute bottom-[-10%] left-[-20%] h-[400px] w-[400px] rounded-full bg-[#0ea5e9]/20 blur-[80px] pointer-events-none"
+        ></div>
+
+        <!-- TopAppBar -->
+        <div class="flex items-center justify-between p-6 pt-12 z-10">
+          <button
+            id="call-screen-minimize"
+            class="flex size-12 shrink-0 items-center justify-center rounded-full glass-btn hover:bg-white/20 transition-colors text-white"
+            type="button"
+          >
+            <span class="material-symbols-outlined text-[28px]"
+              >keyboard_arrow_down</span
+            >
+          </button>
+          <div class="flex flex-col items-center flex-1">
+            <h2
+              class="text-white/70 text-sm font-bold tracking-widest uppercase"
+            >
+              Oceanid Call
+            </h2>
+          </div>
+          <button
+            class="flex size-12 shrink-0 items-center justify-center rounded-full glass-btn hover:bg-white/20 transition-colors text-white"
+            type="button"
+          >
+            <span class="material-symbols-outlined text-[24px]"
+              >more_vert</span
+            >
+          </button>
+        </div>
+
+        <!-- ProfileHeader -->
+        <div
+          class="flex flex-1 flex-col items-center justify-start pt-6 gap-8 z-10 @container"
+        >
+          <div class="relative">
+            <!-- Decorative Ripples -->
+            <div
+              class="absolute inset-0 -m-4 rounded-full border border-white/10 animate-pulse"
+            ></div>
+            <div
+              class="absolute inset-0 -m-8 rounded-full border border-white/5 opacity-60"
+            ></div>
+            <div
+              id="call-screen-avatar"
+              class="bg-center bg-no-repeat bg-cover rounded-full h-36 w-36 shadow-2xl border-4 border-white/10 relative z-10"
+            ></div>
+          </div>
+          <div class="flex flex-col items-center justify-center gap-2">
+            <h1
+              id="call-screen-name"
+              class="text-white text-3xl font-bold tracking-tight text-center"
+            >
+              -
+            </h1>
+            <div class="flex items-center gap-2 text-blue-200">
+              <span class="material-symbols-outlined text-[18px] fill-1"
+                >encrypted</span
+              >
+              <p
+                id="call-screen-status"
+                class="text-lg font-medium tracking-wide text-center"
+              >
+                Calling…
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TextGrid (Action Buttons) -->
+        <div class="w-full max-w-md mx-auto px-8 pb-6 z-10">
+          <div class="grid grid-cols-3 gap-x-6 gap-y-8">
+            <!-- Mute -->
+            <button
+              id="call-screen-mute"
+              class="flex flex-col items-center gap-3 group w-full"
+              type="button"
+            >
+              <div
+                class="glass-btn flex h-[72px] w-[72px] items-center justify-center rounded-full transition-all group-hover:bg-white/20 active:scale-95"
+              >
+                <span class="material-symbols-outlined text-[32px]"
+                  >mic_off</span
+                >
+              </div>
+              <span class="text-xs font-semibold tracking-wide text-white/90"
+                >Mute</span
+              >
+            </button>
+            <!-- Keypad (UI only) -->
+            <button class="flex flex-col items-center gap-3 group w-full">
+              <div
+                class="glass-btn flex h-[72px] w-[72px] items-center justify-center rounded-full transition-all group-hover:bg-white/20 active:scale-95"
+              >
+                <span class="material-symbols-outlined text-[32px]"
+                  >dialpad</span
+                >
+              </div>
+              <span class="text-xs font-semibold tracking-wide text-white/90"
+                >Keypad</span
+              >
+            </button>
+            <!-- Speaker -->
+            <button
+              id="call-screen-speaker"
+              class="flex flex-col items-center gap-3 group w-full"
+              type="button"
+            >
+              <div
+                class="glass-btn flex h-[72px] w-[72px] items-center justify-center rounded-full transition-all group-hover:bg-white/20 active:scale-95"
+              >
+                <span
+                  class="material-symbols-outlined text-[32px] fill-1"
+                  style="font-variation-settings: 'FILL' 1;"
+                  >volume_up</span
+                >
+              </div>
+              <span class="text-xs font-bold tracking-wide text-white"
+                >Speaker</span
+              >
+            </button>
+            <!-- Add Call (UI only) -->
+            <button class="flex flex-col items-center gap-3 group w-full">
+              <div
+                class="glass-btn flex h-[72px] w-[72px] items-center justify-center rounded-full transition-all group-hover:bg-white/20 active:scale-95"
+              >
+                <span class="material-symbols-outlined text-[32px]"
+                  >add_call</span
+                >
+              </div>
+              <span class="text-xs font-semibold tracking-wide text-white/90"
+                >Add call</span
+              >
+            </button>
+            <!-- Video (UI only) -->
+            <button class="flex flex-col items-center gap-3 group w-full">
+              <div
+                class="glass-btn flex h-[72px] w-[72px] items-center justify-center rounded-full transition-all group-hover:bg-white/20 active:scale-95"
+              >
+                <span class="material-symbols-outlined text-[32px]"
+                  >videocam</span
+                >
+              </div>
+              <span class="text-xs font-semibold tracking-wide text-white/90"
+                >Video</span
+              >
+            </button>
+            <!-- Contacts (UI only) -->
+            <button class="flex flex-col items-center gap-3 group w-full">
+              <div
+                class="glass-btn flex h-[72px] w-[72px] items-center justify-center rounded-full transition-all group-hover:bg-white/20 active:scale-95"
+              >
+                <span class="material-symbols-outlined text-[32px]"
+                  >account_circle</span
+                >
+              </div>
+              <span class="text-xs font-semibold tracking-wide text-white/90"
+                >Contacts</span
+              >
+            </button>
+          </div>
+        </div>
+
+        <!-- Incoming call controls -->
+        <div
+          id="call-screen-incoming-actions"
+          class="flex justify-center items-center pb-4 pt-2 z-10 w-full gap-10 hidden"
+        >
+          <button
+            id="call-screen-reject-incoming"
+            class="flex h-[76px] w-[76px] cursor-pointer items-center justify-center rounded-full bg-[#ef4444] text-white shadow-xl hover:bg-[#dc2626] transition-all active:scale-90 shadow-red-900/40"
+            type="button"
+          >
+            <span
+              class="material-symbols-outlined text-[40px] fill-1"
+              style="font-variation-settings: 'FILL' 1;"
+              >call_end</span
+            >
+          </button>
+          <button
+            id="call-screen-accept-incoming"
+            class="flex h-[76px] w-[76px] cursor-pointer items-center justify-center rounded-full bg-green-500 text-white shadow-xl hover:bg-green-600 transition-all active:scale-90 shadow-green-900/40"
+            type="button"
+          >
+            <span class="material-symbols-outlined text-[40px]">call</span>
+          </button>
+        </div>
+
+        <!-- Ongoing / outgoing end call -->
+        <div
+          id="call-screen-ongoing-actions"
+          class="flex justify-center items-center pb-12 pt-4 z-10 w-full"
+        >
+          <button
+            id="call-screen-end"
+            class="flex h-[88px] w-[88px] cursor-pointer items-center justify-center rounded-full bg-[#ef4444] text-white shadow-xl hover:bg-[#dc2626] transition-all active:scale-90 hover:scale-105 shadow-red-900/40"
+            type="button"
+          >
+            <span
+              class="material-symbols-outlined text-[44px] fill-1"
+              style="font-variation-settings: 'FILL' 1;"
+              >call_end</span
+            >
+          </button>
+        </div>
+      </section>
+
+      <!-- Remote audio for WebRTC -->
+      <audio id="remote-audio" autoplay class="hidden"></audio>
+
+      <!-- ============== GLOBAL BOTTOM NAV ============== -->
+      <nav
+        id="bottom-nav"
+        class="hidden fixed bottom-0 left-0 right-0 z-20 mx-auto flex h-20 w-full max-w-lg items-center justify-around border-t border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-background-dark/90 backdrop-blur-sm"
+      >
+        <button
+          id="nav-home"
+          type="button"
+          class="flex flex-col items-center gap-1 text-mid-gray dark:text-gray-400"
+        >
+          <span class="material-symbols-outlined text-2xl">home</span>
+          <span class="text-xs font-medium">Home</span>
+        </button>
+
+        <button
+          id="nav-alerts"
+          type="button"
+          class="flex flex-col items-center gap-1 text-mid-gray dark:text-gray-400"
+        >
+          <span class="material-symbols-outlined text-2xl"
+            >notifications</span
+          >
+          <span class="text-xs font-medium">Alert</span>
+        </button>
+
+        <button
+          id="nav-upload"
+          type="button"
+          class="flex flex-col items-center gap-1 text-mid-gray dark:text-gray-400"
+        >
+          <span
+            class="material-symbols-outlined text-2xl"
+            style="font-variation-settings: 'FILL' 1;"
+            >add_circle</span
+          >
+          <span class="text-xs font-medium">Upload</span>
+        </button>
+
+        <button
+          id="nav-sms"
+          type="button"
+          class="flex flex-col items-center gap-1 text-mid-gray dark:text-gray-400"
+        >
+          <span class="material-symbols-outlined text-2xl">sms</span>
+          <span class="text-xs font-medium">SMS</span>
+        </button>
+
+        <button
+          id="nav-call"
+          type="button"
+          class="flex flex-col items-center gap-1 text-mid-gray dark:text-gray-400"
+        >
+          <span class="material-symbols-outlined text-2xl">call</span>
+          <span class="text-xs font-medium">Call</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Socket.IO from backend -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+    <!-- ============== JS NAVIGATION + API CALLS + WEBRTC ============== -->
+    <script>
+      const API_BASE_URL = "http://localhost:3000";
+
+      const loginView = document.getElementById("login-view");
+      const signupView = document.getElementById("signup-view");
+      const homeView = document.getElementById("home-view");
+      const alertsView = document.getElementById("alerts-view");
+      const uploadView = document.getElementById("upload-view");
+      const messagesView = document.getElementById("messages-view");
+      const usersView = document.getElementById("users-view");
+      const chatView = document.getElementById("chat-view");
+      const profileView = document.getElementById("profile-view");
+      const callView = document.getElementById("call-view");
+
+      const goToSignup = document.getElementById("go-to-signup");
+      const goToLogin = document.getElementById("go-to-login");
+
+      const loginBtn = document.getElementById("login-btn");
+      const signupBtn = document.getElementById("signup-btn");
+
+      const loginMobile = document.getElementById("login-mobile");
+      const loginPassword = document.getElementById("login-password");
+      const loginPasswordToggle = document.getElementById(
+        "login-password-toggle"
+      );
+      const loginError = document.getElementById("login-error");
+
+      const signupName = document.getElementById("signup-name");
+      const signupMobile = document.getElementById("signup-mobile");
+      const signupPassword = document.getElementById("signup-password");
+      const signupPasswordToggle = document.getElementById(
+        "signup-password-toggle"
+      );
+      const signupError = document.getElementById("signup-error");
+      const signupSuccess = document.getElementById("signup-success");
+
+      const bottomNav = document.getElementById("bottom-nav");
+      const navHome = document.getElementById("nav-home");
+      const navAlerts = document.getElementById("nav-alerts");
+      const navUpload = document.getElementById("nav-upload");
+      const navSMS = document.getElementById("nav-sms");
+      const navCall = document.getElementById("nav-call");
+
+      const smsAddBtn = document.getElementById("sms-add-btn");
+      const messagesList = document.getElementById("messages-list");
+
+      const usersBackBtn = document.getElementById("users-back-btn");
+      const usersSearch = document.getElementById("users-search");
+      const usersList = document.getElementById("users-list");
+
+      const uploadCause = document.getElementById("upload-cause");
+      const uploadDate = document.getElementById("upload-date");
+      const uploadLocation = document.getElementById("upload-location");
+      const uploadDescription = document.getElementById("upload-description");
+      const uploadPhoto = document.getElementById("upload-photo");
+      const uploadBtn = document.getElementById("upload-btn");
+      const uploadStatus = document.getElementById("upload-status");
+
+      const homeFeed = document.getElementById("home-feed");
+      const alertsList = document.getElementById("alerts-list");
+
+      const homeProfileBtn = document.getElementById("home-profile-btn");
+      const profileBackBtn = document.getElementById("profile-back-btn");
+      const profilePhoto = document.getElementById("profile-photo");
+      const profilePhotoInput = document.getElementById("profile-photo-input");
+      const profilePhotoEditBtn = document.getElementById(
+        "profile-photo-edit-btn"
+      );
+      const profileNameTitle = document.getElementById("profile-name-title");
+      const profileNameInput = document.getElementById("profile-name-input");
+      const profileMobileInput = document.getElementById("profile-mobile-input");
+      const profileSaveBtn = document.getElementById("profile-save-btn");
+      const profileLogoutBtn = document.getElementById("profile-logout-btn");
+      const profileStatus = document.getElementById("profile-status");
+
+      // Chat view elements
+      const chatBackBtn = document.getElementById("chat-back-btn");
+      const chatHeaderAvatar = document.getElementById("chat-header-avatar");
+      const chatHeaderName = document.getElementById("chat-header-name");
+      const chatHeaderNumber = document.getElementById("chat-header-number");
+      const chatMessages = document.getElementById("chat-messages");
+      const chatInput = document.getElementById("chat-input");
+      const chatSendBtn = document.getElementById("chat-send-btn");
+      const chatCallBtn = document.getElementById("chat-call-btn");
+
+      // Call view elements
+      const callSearch = document.getElementById("call-search");
+      const callAddBtn = document.getElementById("call-add-btn");
+      const callDialToggle = document.getElementById("call-dial-toggle");
+      const callDialpad = document.getElementById("call-dialpad");
+      const dialInput = document.getElementById("dial-input");
+      const dialBackspace = document.getElementById("dial-backspace");
+      const dialCallBtn = document.getElementById("dial-call-btn");
+
+      // Call screen elements
+      const callScreenView = document.getElementById("call-screen-view");
+      const callScreenName = document.getElementById("call-screen-name");
+      const callScreenStatus = document.getElementById("call-screen-status");
+      const callScreenAvatar = document.getElementById("call-screen-avatar");
+      const callScreenIncomingActions = document.getElementById(
+        "call-screen-incoming-actions"
+      );
+      const callScreenOngoingActions = document.getElementById(
+        "call-screen-ongoing-actions"
+      );
+      const callScreenMinimize = document.getElementById(
+        "call-screen-minimize"
+      );
+      const callScreenAcceptIncoming = document.getElementById(
+        "call-screen-accept-incoming"
+      );
+      const callScreenRejectIncoming = document.getElementById(
+        "call-screen-reject-incoming"
+      );
+      const callScreenEnd = document.getElementById("call-screen-end");
+      const callScreenMute = document.getElementById("call-screen-mute");
+      const callScreenSpeaker = document.getElementById("call-screen-speaker");
+      const remoteAudio = document.getElementById("remote-audio");
+
+      let profilePhotoFile = null;
+      let activeChatMobile = null;
+      let activeChatName = null;
+
+      // ==========================
+      // Helper: current user
+      // ==========================
+      function setCurrentUser(user) {
+        localStorage.setItem("oceanid_user", JSON.stringify(user));
+      }
+
+      function getCurrentUser() {
+        const raw = localStorage.getItem("oceanid_user");
+        if (!raw) return null;
+        try {
+          return JSON.parse(raw);
+        } catch {
+          return null;
+        }
+      }
+
+      // ==========================
+      // WebRTC + Socket.IO Setup
+      // ==========================
+      const socket = io(API_BASE_URL, { transports: ["websocket"] });
+
+      const ICE_SERVERS = {
+        iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+      };
+
+      let rtcPeer = null;
+      let localStream = null;
+      let remoteStream = null;
+      let activeCall = null; // { withMobile, direction, status, name, pendingOffer? }
+      let callTimerInterval = null;
+      let isMuted = false;
+      let isSpeaker = false;
+
+      // Register socket for current user
+      function registerSocketForCurrentUser() {
+        const user = getCurrentUser();
+        if (!user) return;
+        socket.emit("register", user.mobile);
+      }
+
+      // Call UI helpers
+      function showCallScreen(name, mobile, avatarUrl, mode, initialStatus) {
+        activeCall = activeCall || {};
+        activeCall.name = name || mobile;
+        activeCall.withMobile = mobile;
+
+        callScreenName.textContent = name || mobile || "Unknown";
+        callScreenStatus.textContent = initialStatus || "Calling…";
+
+        const url =
+          avatarUrl ||
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            name || mobile || "User"
+          )}&background=007BFF&color=fff`;
+        callScreenAvatar.style.backgroundImage = `url('${url}')`;
+
+        if (mode === "incoming") {
+          callScreenIncomingActions.classList.remove("hidden");
+          callScreenOngoingActions.classList.add("hidden");
+        } else {
+          callScreenIncomingActions.classList.add("hidden");
+          callScreenOngoingActions.classList.remove("hidden");
+        }
+
+        callScreenView.classList.remove("hidden");
+      }
+
+      function hideCallScreen() {
+        callScreenView.classList.add("hidden");
+        stopCallTimer();
+      }
+
+      function updateCallStatus(text) {
+        if (callScreenStatus) callScreenStatus.textContent = text;
+      }
+
+      function startCallTimer() {
+        const start = Date.now();
+        stopCallTimer();
+        callTimerInterval = setInterval(() => {
+          const diff = Math.floor((Date.now() - start) / 1000);
+          const mm = String(Math.floor(diff / 60)).padStart(2, "0");
+          const ss = String(diff % 60).padStart(2, "0");
+          updateCallStatus(`${mm}:${ss}`);
+        }, 1000);
+      }
+
+      function stopCallTimer() {
+        if (callTimerInterval) clearInterval(callTimerInterval);
+        callTimerInterval = null;
+      }
+
+      // WebRTC helpers
+      async function createPeerConnection() {
+        rtcPeer = new RTCPeerConnection(ICE_SERVERS);
+
+        rtcPeer.onicecandidate = (event) => {
+          if (event.candidate && activeCall && activeCall.withMobile) {
+            const me = getCurrentUser();
+            if (!me) return;
+            socket.emit("call:ice-candidate", {
+              from: me.mobile,
+              to: activeCall.withMobile,
+              candidate: event.candidate,
+            });
+          }
+        };
+
+        rtcPeer.ontrack = (event) => {
+          if (!remoteStream) {
+            remoteStream = new MediaStream();
+            if (remoteAudio) remoteAudio.srcObject = remoteStream;
+          }
+          remoteStream.addTrack(event.track);
+        };
+
+        localStream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+          video: false,
+        });
+        localStream.getTracks().forEach((track) => {
+          rtcPeer.addTrack(track, localStream);
+        });
+
+        return rtcPeer;
+      }
+
+      function cleanupCall() {
+        if (rtcPeer) {
+          rtcPeer.close();
+          rtcPeer = null;
+        }
+        if (localStream) {
+          localStream.getTracks().forEach((t) => t.stop());
+          localStream = null;
+        }
+        remoteStream = null;
+        activeCall = null;
+        stopCallTimer();
+        hideCallScreen();
+      }
+
+      // Outgoing call
+      async function startOutgoingCall(targetMobile, displayName, avatarUrl) {
+        const user = getCurrentUser();
+        if (!user) {
+          showView("login");
+          return;
+        }
+        if (!targetMobile) {
+          alert("No target number to call.");
+          return;
+        }
+
+        activeCall = {
+          withMobile: targetMobile,
+          direction: "outgoing",
+          status: "ringing",
+          name: displayName || targetMobile,
+        };
+
+        showCallScreen(
+          displayName || targetMobile,
+          targetMobile,
+          avatarUrl,
+          "outgoing",
+          "Ringing…"
+        );
+
+        try {
+          const pc = await createPeerConnection();
+          const offer = await pc.createOffer();
+          await pc.setLocalDescription(offer);
+
+          socket.emit("call:offer", {
+            from: user.mobile,
+            to: targetMobile,
+            offer,
+          });
+        } catch (err) {
+          console.error("startOutgoingCall error", err);
+          alert("Could not start call.");
+          cleanupCall();
+        }
+      }
+
+      // Accept / reject incoming
+      async function acceptIncomingCall() {
+        if (!activeCall || !activeCall.pendingOffer) return;
+        const user = getCurrentUser();
+        if (!user) {
+          showView("login");
+          return;
+        }
+
+        try {
+          const pc = await createPeerConnection();
+          await pc.setRemoteDescription(
+            new RTCSessionDescription(activeCall.pendingOffer)
+          );
+          const answer = await pc.createAnswer();
+          await pc.setLocalDescription(answer);
+
+          socket.emit("call:answer", {
+            from: user.mobile,
+            to: activeCall.withMobile,
+            answer,
+          });
+
+          activeCall.status = "connected";
+          callScreenIncomingActions.classList.add("hidden");
+          callScreenOngoingActions.classList.remove("hidden");
+          updateCallStatus("Connecting…");
+          startCallTimer();
+        } catch (err) {
+          console.error("acceptIncomingCall error", err);
+          cleanupCall();
+        }
+      }
+
+      function sendHangup() {
+        const user = getCurrentUser();
+        if (activeCall && user) {
+          socket.emit("call:hangup", {
+            from: user.mobile,
+            to: activeCall.withMobile,
+          });
+        }
+        cleanupCall();
+      }
+
+      // Socket handlers
+      socket.on("connect", () => {
+        registerSocketForCurrentUser();
+      });
+
+      socket.on("call:offer", async ({ from, offer }) => {
+        const current = getCurrentUser();
+        if (!current) return;
+
+        activeCall = {
+          withMobile: from,
+          direction: "incoming",
+          status: "incoming",
+          pendingOffer: offer,
+        };
+
+        const name = "Caller " + from;
+        showCallScreen(name, from, null, "incoming", "Incoming call…");
+      });
+
+      socket.on("call:answer", async ({ from, answer }) => {
+        if (!rtcPeer) return;
+        try {
+          await rtcPeer.setRemoteDescription(new RTCSessionDescription(answer));
+          activeCall.status = "connected";
+          updateCallStatus("Connected");
+          startCallTimer();
+        } catch (err) {
+          console.error("call:answer error", err);
+        }
+      });
+
+      socket.on("call:ice-candidate", async ({ from, candidate }) => {
+        if (!rtcPeer) return;
+        try {
+          await rtcPeer.addIceCandidate(new RTCIceCandidate(candidate));
+        } catch (err) {
+          console.error("addIceCandidate error", err);
+        }
+      });
+
+      socket.on("call:hangup", ({ from }) => {
+        cleanupCall();
+      });
+
+      socket.on("call:unavailable", ({ to }) => {
+        if (activeCall && activeCall.withMobile === to) {
+          alert("User is not available.");
+          cleanupCall();
+        }
+      });
+
+      // Call screen UI events
+      if (callScreenMinimize) {
+        callScreenMinimize.addEventListener("click", () => {
+          callScreenView.classList.add("hidden");
+        });
+      }
+
+      if (callScreenEnd) {
+        callScreenEnd.addEventListener("click", () => {
+          sendHangup();
+        });
+      }
+
+      if (callScreenRejectIncoming) {
+        callScreenRejectIncoming.addEventListener("click", () => {
+          sendHangup();
+        });
+      }
+
+      if (callScreenAcceptIncoming) {
+        callScreenAcceptIncoming.addEventListener("click", () => {
+          acceptIncomingCall();
+        });
+      }
+
+      if (callScreenMute) {
+        callScreenMute.addEventListener("click", () => {
+          if (!localStream) return;
+          isMuted = !isMuted;
+          localStream.getAudioTracks().forEach((t) => (t.enabled = !isMuted));
+        });
+      }
+
+      if (callScreenSpeaker) {
+        callScreenSpeaker.addEventListener("click", () => {
+          isSpeaker = !isSpeaker;
+          if (remoteAudio) {
+            remoteAudio.muted = false;
+          }
+        });
+      }
+
+      // ==========================
+      // Local chat storage helpers
+      // ==========================
+      function chatStorageKey(myMobile, otherMobile) {
+        return `oceanid_chat_${myMobile}_${otherMobile}`;
+      }
+
+      function loadChatFromLocal(myMobile, otherMobile) {
+        const key = chatStorageKey(myMobile, otherMobile);
+        const raw = localStorage.getItem(key);
+        if (!raw) return [];
+        try {
+          return JSON.parse(raw);
+        } catch {
+          return [];
+        }
+      }
+
+      function saveChatToLocal(myMobile, otherMobile, messages) {
+        const key = chatStorageKey(myMobile, otherMobile);
+        localStorage.setItem(key, JSON.stringify(messages || []));
+      }
+
+      // ==========================
+      // Local recent threads storage helpers
+      // ==========================
+      function recentThreadsStorageKey(myMobile) {
+        return `oceanid_recent_threads_${myMobile}`;
+      }
+
+      function loadRecentThreadsFromLocal(myMobile) {
+        const key = recentThreadsStorageKey(myMobile);
+        const raw = localStorage.getItem(key);
+        if (!raw) return [];
+        try {
+          return JSON.parse(raw);
+        } catch {
+          return [];
+        }
+      }
+
+      function saveRecentThreadsToLocal(myMobile, threads) {
+        const key = recentThreadsStorageKey(myMobile);
+        localStorage.setItem(key, JSON.stringify(threads || []));
+      }
+
+      // ==========================
+      // Helper: time formatting
+      // ==========================
+      function formatTimeAgo(dateString) {
+        if (!dateString) return "";
+        const d = new Date(dateString);
+        const now = new Date();
+        const diffMs = now - d;
+        const diffMin = Math.floor(diffMs / 60000);
+        if (diffMin < 1) return "Just now";
+        if (diffMin < 60) return diffMin + " min ago";
+        const diffH = Math.floor(diffMin / 60);
+        if (diffH < 24) return diffH + " h ago";
+        const diffD = Math.floor(diffH / 24);
+        if (diffD < 7) return diffD + " d ago";
+        return d.toLocaleDateString();
+      }
+
+      // ==========================
+      // Home feed from /photos
+      // ==========================
+      async function loadHomeFeed() {
+        if (!homeFeed) return;
+        homeFeed.innerHTML =
+          '<p class="px-4 pt-3 text-sm text-text-secondary dark:text-slate-400">Loading reports...</p>';
+        try {
+          const res = await fetch(`${API_BASE_URL}/photos`);
+          if (!res.ok) {
+            homeFeed.innerHTML =
+              '<p class="px-4 pt-3 text-sm text-red-600 dark:text-red-400">Failed to load reports.</p>';
+            return;
+          }
+          const data = await res.json();
+          const photos = data.photos || [];
+          if (!photos.length) {
+            homeFeed.innerHTML =
+              '<p class="px-4 pt-3 text-sm text-text-secondary dark:text-slate-400">No reports yet. Be the first to upload!</p>';
+            return;
+          }
+
+          homeFeed.innerHTML = photos
+            .map((p) => {
+              const imageUrl = `${API_BASE_URL}${p.img}`;
+              const timeLabel = formatTimeAgo(p.createdAt || p.date);
+              const location = p.location || "Unknown location";
+
+              const userName =
+                p.user_name || p.username || p.name || "Oceanid User";
+
+              const avatarInitials = userName
+                .split(" ")
+                .filter(Boolean)
+                .map((part) => part[0])
+                .join("")
+                .slice(0, 2)
+                .toUpperCase();
+
+              const cause = p.cause_of_action || "Report";
+              const desc = p.description || "";
+              const reportId = p._id || "";
+
+              return `
+              <div class="w-full flex-col bg-card-background-light dark:bg-card-background-dark p-4 pt-3 @container">
+                <div class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start">
+                  <div class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-2">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="aspect-square size-10 shrink-0 rounded-full bg-cover bg-center bg-no-repeat bg-[#cbd5f5] dark:bg-slate-700 flex items-center justify-center text-xs font-semibold text-[#111318] dark:text-white"
+                      >
+                        ${avatarInitials}
+                      </div>
+                      <div class="flex flex-col">
+                        <p class="text-sm font-bold text-[#111318] dark:text-white">
+                          ${userName}
+                        </p>
+                        <p class="text-xs font-normal leading-normal text-[#616f89] dark:text-gray-400">
+                          ${timeLabel}
+                        </p>
+                      </div>
+                    </div>
+                    <p class="text-xs font-medium uppercase tracking-wide text-[#64748B] dark:text-slate-400">
+                      ${location}
+                    </p>
+                    <p class="py-1 text-base font-semibold leading-normal text-[#111318] dark:text-gray-50">
+                      ${cause}
+                    </p>
+                    <p class="pb-2 text-sm font-normal leading-normal text-[#616f89] dark:text-gray-300">
+                      ${desc}
+                    </p>
+                    <div
+                      class="aspect-video w-full rounded-xl bg-cover bg-center bg-no-repeat bg-slate-200 dark:bg-slate-700"
+                      style="background-image: url('${imageUrl}');"
+                    ></div>
+                    <div class="flex justify-end mt-3">
+                      <button
+                        type="button"
+                        class="flex items-center gap-1 text-sm font-medium text-ocean-blue hover:underline"
+                        data-share="true"
+                        data-report-id="${reportId}"
+                        data-location="${location}"
+                        data-cause="${cause}"
+                        data-description="${desc.replace(/"/g, "&quot;")}"
+                      >
+                        <span class="material-symbols-outlined text-base">share</span>
+                        <span>Share</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+            })
+            .join("");
+        } catch (err) {
+          console.error(err);
+          homeFeed.innerHTML =
+            '<p class="px-4 pt-3 text-sm text-red-600 dark:text-red-400">Error loading reports.</p>';
+        }
+      }
+
+      // Share button handler
+      if (homeFeed) {
+        homeFeed.addEventListener("click", (event) => {
+          const btn = event.target.closest("[data-share='true']");
+          if (!btn) return;
+
+          const title = btn.dataset.cause || "Oceanid Report";
+          const textRaw =
+            (btn.dataset.location || "") +
+            (btn.dataset.description ? " - " + btn.dataset.description : "");
+          const text = textRaw.slice(0, 200);
+          const reportId = btn.dataset.reportId;
+          const url = reportId
+            ? `${window.location.origin}/report/${reportId}`
+            : window.location.origin;
+
+          if (navigator.share) {
+            navigator
+              .share({ title, text, url })
+              .catch(() => {});
+          } else {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(url).then(
+                () => {
+                  alert("Report link copied to clipboard.");
+                },
+                () => {
+                  alert("Unable to copy link.");
+                }
+              );
+            } else {
+              alert("Sharing not supported in this browser.");
+            }
+          }
+        });
+      }
+
+      // ==========================
+      // Alerts grouping helpers
+      // ==========================
+      function groupAlertsByDate(alerts) {
+        const today = new Date();
+        const groups = {
+          today: [],
+          yesterday: [],
+          week: [],
+          month: [],
+        };
+
+        alerts.forEach((a) => {
+          const d = new Date(a.date || a.updatedAt || a.createdAt);
+          const diffMs = today - d;
+          const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+          if (diffDays < 1) {
+            groups.today.push(a);
+          } else if (diffDays < 2) {
+            groups.yesterday.push(a);
+          } else if (diffDays < 7) {
+            groups.week.push(a);
+          } else if (diffDays < 30) {
+            groups.month.push(a);
+          }
+        });
+
+        return groups;
+      }
+
+      function renderAlertGroup(title, alertsArray) {
+        if (!alertsArray.length) return "";
+
+        return `
+          <div class="mb-5">
+            <h3 class="text-xs font-semibold text-ocean-blue mb-2 uppercase tracking-wide">
+              ${title}
+            </h3>
+            <div class="flex flex-col gap-2">
+              ${alertsArray
+                .map((a) => {
+                  const location = a.location || "Unknown area";
+                  const cause = a.cause_of_action || "Alert";
+                  const desc = a.description || "";
+                  const rawDate = a.date || a.updatedAt || a.createdAt;
+                  const dateLabel = rawDate
+                    ? new Date(rawDate).toLocaleDateString()
+                    : "";
+                  return `
+                    <div
+                      class="flex items-center justify-between rounded-lg border border-border-light dark:border-border-dark bg-card-background-light dark:bg-card-background-dark px-3 py-2 gap-2 text-xs md:text-sm"
+                    >
+                      <div class="flex flex-col flex-[2] min-w-0">
+                        <p class="font-semibold text-text-primary dark:text-white truncate">
+                          ${location}
+                        </p>
+                        <p class="text-text-secondary dark:text-slate-300 truncate">
+                          ${cause}
+                        </p>
+                      </div>
+                      <div class="flex flex-col flex-[3] min-w-0">
+                        <p class="text-text-secondary dark:text-slate-400 line-clamp-2">
+                          ${desc}
+                        </p>
+                      </div>
+                      <div class="flex flex-col flex-[1] items-end min-w-[72px]">
+                        <p class="text-text-secondary dark:text-slate-400 whitespace-nowrap">
+                          ${dateLabel}
+                        </p>
+                      </div>
+                    </div>
+                  `;
+                })
+                .join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      // ==========================
+      // Alerts from /climate
+      // ==========================
+      async function loadAlerts() {
+        if (!alertsList) return;
+        alertsList.innerHTML =
+          '<p class="text-sm text-text-secondary dark:text-slate-400">Loading alerts...</p>';
+        try {
+          const res = await fetch(`${API_BASE_URL}/climate`);
+          if (!res.ok) {
+            alertsList.innerHTML =
+              '<p class="text-sm text-red-600 dark:text-red-400">Failed to load climate alerts.</p>';
+            return;
+          }
+          const data = await res.json();
+          const alerts = data.alerts || [];
+          if (!alerts.length) {
+            alertsList.innerHTML =
+              '<p class="text-sm text-text-secondary dark:text-slate-400">No active climate alerts.</p>';
+            return;
+          }
+
+          const grouped = groupAlertsByDate(alerts);
+
+          alertsList.innerHTML =
+            renderAlertGroup("Today", grouped.today) +
+            renderAlertGroup("Yesterday", grouped.yesterday) +
+            renderAlertGroup("This Week", grouped.week) +
+            renderAlertGroup("Last 30 Days", grouped.month);
+        } catch (err) {
+          console.error(err);
+          alertsList.innerHTML =
+            '<p class="text-sm text-red-600 dark:text-red-400">Error loading alerts.</p>';
+        }
+      }
+
+      // ==========================
+      // Nav helpers
+      // ==========================
+      function clearNavActive() {
+        [navHome, navAlerts, navUpload, navSMS, navCall].forEach((btn) => {
+          btn.classList.remove("text-ocean-blue", "font-bold");
+          btn.classList.add("text-mid-gray", "dark:text-gray-400");
+        });
+      }
+
+      function hideAllViews() {
+        loginView.classList.add("hidden");
+        signupView.classList.add("hidden");
+        homeView.classList.add("hidden");
+        alertsView.classList.add("hidden");
+        uploadView.classList.add("hidden");
+        messagesView.classList.add("hidden");
+        usersView.classList.add("hidden");
+        chatView.classList.add("hidden");
+        profileView.classList.add("hidden");
+        callView.classList.add("hidden");
+        // call-screen is overlay; we don't hide here
+      }
+
+      function showView(view) {
+        hideAllViews();
+
+        if (view === "login") loginView.classList.remove("hidden");
+        if (view === "signup") signupView.classList.remove("hidden");
+        if (view === "home") homeView.classList.remove("hidden");
+        if (view === "alerts") alertsView.classList.remove("hidden");
+        if (view === "upload") uploadView.classList.remove("hidden");
+        if (view === "messages") messagesView.classList.remove("hidden");
+        if (view === "users") usersView.classList.remove("hidden");
+        if (view === "chat") chatView.classList.remove("hidden");
+        if (view === "profile") profileView.classList.remove("hidden");
+        if (view === "call") callView.classList.remove("hidden");
+
+        if (
+          ["home", "alerts", "upload", "messages", "profile", "call"].includes(
+            view
+          )
+        ) {
+          bottomNav.classList.remove("hidden");
+        } else {
+          bottomNav.classList.add("hidden");
+        }
+
+        clearNavActive();
+        if (view === "home") {
+          navHome.classList.remove("text-mid-gray", "dark:text-gray-400");
+          navHome.classList.add("text-ocean-blue", "font-bold");
+          loadHomeFeed();
+        }
+        if (view === "alerts") {
+          navAlerts.classList.remove("text-mid-gray", "dark:text-gray-400");
+          navAlerts.classList.add("text-ocean-blue", "font-bold");
+          loadAlerts();
+        }
+        if (view === "upload") {
+          navUpload.classList.remove("text-mid-gray", "dark:text-gray-400");
+          navUpload.classList.add("text-ocean-blue", "font-bold");
+        }
+        if (view === "messages") {
+          navSMS.classList.remove("text-mid-gray", "dark:text-gray-400");
+          navSMS.classList.add("text-ocean-blue", "font-bold");
+          loadRecentThreads();
+        }
+        if (view === "call") {
+          navCall.classList.remove("text-mid-gray", "dark:text-gray-400");
+          navCall.classList.add("text-ocean-blue", "font-bold");
+        }
+      }
+
+      // ==========================
+      // Profile helpers
+      // ==========================
+      function setProfileStatus(message, isError = false) {
+        if (!profileStatus) return;
+        profileStatus.textContent = message || "";
+        profileStatus.classList.remove(
+          "hidden",
+          "text-red-600",
+          "dark:text-red-400",
+          "text-green-600",
+          "dark:text-green-400"
+        );
+        if (!message) {
+          profileStatus.classList.add("hidden");
+          return;
+        }
+        if (isError) {
+          profileStatus.classList.add("text-red-600", "dark:text-red-400");
+        } else {
+          profileStatus.classList.add("text-green-600", "dark:text-green-400");
+        }
+      }
+
+      function loadProfileView() {
+        const user = getCurrentUser();
+        if (!user) {
+          showView("login");
+          return;
+        }
+
+        if (profileNameInput) profileNameInput.value = user.name || "";
+        if (profileNameTitle)
+          profileNameTitle.textContent = user.name || "User";
+        if (profileMobileInput) profileMobileInput.value = user.mobile || "";
+
+        let photoUrl =
+          user.photo && user.photo.startsWith("/uploads")
+            ? `${API_BASE_URL}${user.photo}`
+            : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                user.name || "Oceanid User"
+              )}&background=007BFF&color=fff`;
+
+        if (profilePhoto) {
+          profilePhoto.style.backgroundImage = `url('${photoUrl}')`;
+        }
+
+        profilePhotoFile = null;
+        setProfileStatus("", false);
+      }
+
+      // ==========================
+      // Auth navigation
+      // ==========================
+      goToSignup.addEventListener("click", (e) => {
+        e.preventDefault();
+        showView("signup");
+      });
+
+      goToLogin.addEventListener("click", (e) => {
+        e.preventDefault();
+        showView("login");
+      });
+
+      // ==========================
+      // Signup → POST /users
+      // ==========================
+      signupBtn.addEventListener("click", async () => {
+        const name = signupName.value.trim();
+        const mobile = signupMobile.value.trim();
+        const password = signupPassword.value.trim();
+
+        signupError.classList.add("hidden");
+        signupSuccess.classList.add("hidden");
+        signupError.textContent = "";
+
+        if (!name || !mobile || !password) {
+          signupError.textContent = "Please fill all fields.";
+          signupError.classList.remove("hidden");
+          return;
+        }
+
+        try {
+          const res = await fetch(`${API_BASE_URL}/users`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, mobile, password }),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            signupError.textContent = data.error || "Signup failed.";
+            signupError.classList.remove("hidden");
+            return;
+          }
+
+          signupSuccess.textContent = "Account created! You can now log in.";
+          signupSuccess.classList.remove("hidden");
+
+          setTimeout(() => {
+            showView("login");
+          }, 1000);
+        } catch (err) {
+          console.error(err);
+          signupError.textContent = "Server error. Please try again.";
+          signupError.classList.remove("hidden");
+        }
+      });
+
+      // ==========================
+      // Login → POST /login
+      // ==========================
+      loginBtn.addEventListener("click", async () => {
+        const mobile = loginMobile.value.trim();
+        const password = loginPassword.value.trim();
+
+        loginError.classList.add("hidden");
+        loginError.textContent = "";
+
+        if (!mobile || !password) {
+          loginError.textContent = "Please enter mobile number and password.";
+          loginError.classList.remove("hidden");
+          return;
+        }
+
+        try {
+          const res = await fetch(`${API_BASE_URL}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ mobile, password }),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            loginError.textContent = data.error || "Login failed.";
+            loginError.classList.remove("hidden");
+            return;
+          }
+
+          setCurrentUser(data.user);
+          registerSocketForCurrentUser();
+          showView("home");
+        } catch (err) {
+          console.error(err);
+          loginError.textContent = "Server error. Please try again.";
+          loginError.classList.remove("hidden");
+        }
+      });
+
+            // ==========================
+      // Upload → POST /auth/upload
+      // ==========================
+      uploadBtn.addEventListener("click", async () => {
+        const currentUser = getCurrentUser();
+        uploadStatus.classList.add("hidden");
+        uploadStatus.textContent = "";
+        uploadStatus.classList.remove(
+          "text-red-600",
+          "text-green-600",
+          "dark:text-red-400",
+          "dark:text-green-400"
+        );
+
+        if (!currentUser) {
+          uploadStatus.textContent = "You must be logged in to upload.";
+          uploadStatus.classList.add("text-red-600", "dark:text-red-400");
+          uploadStatus.classList.remove("hidden");
+          return;
+        }
+
+        const cause = uploadCause.value.trim();
+        const dateStr = uploadDate.value.trim();
+        const location = uploadLocation.value.trim();
+        const description = uploadDescription.value.trim();
+        const file = uploadPhoto.files[0];
+
+        if (!file) {
+          uploadStatus.textContent = "Please select a photo.";
+          uploadStatus.classList.add("text-red-600", "dark:text-red-400");
+          uploadStatus.classList.remove("hidden");
+          return;
+        }
+
+        if (!cause) {
+          uploadStatus.textContent = "Please select a cause of action.";
+          uploadStatus.classList.add("text-red-600", "dark:text-red-400");
+          uploadStatus.classList.remove("hidden");
+          return;
+        }
+
+        if (!location) {
+          uploadStatus.textContent = "Please enter a location.";
+          uploadStatus.classList.add("text-red-600", "dark:text-red-400");
+          uploadStatus.classList.remove("hidden");
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("user_number", currentUser.mobile);
+        formData.append("cause_of_action", cause);
+        if (dateStr) formData.append("date", dateStr);
+        formData.append("location", location);
+        if (description) formData.append("description", description);
+        formData.append("photo", file);
+
+        uploadStatus.textContent = "Uploading for verification...";
+        uploadStatus.classList.add("text-text-secondary", "dark:text-slate-300");
+        uploadStatus.classList.remove("hidden");
+
+        try {
+          const res = await fetch(`${API_BASE_URL}/auth/upload`, {
+            method: "POST",
+            body: formData,
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            uploadStatus.textContent = data.error || "Upload failed.";
+            uploadStatus.classList.remove(
+              "text-text-secondary",
+              "dark:text-slate-300"
+            );
+            uploadStatus.classList.add("text-red-600", "dark:text-red-400");
+            return;
+          }
+
+          uploadStatus.textContent =
+            "Report submitted for verification. It will appear in the feed once approved.";
+          uploadStatus.classList.remove(
+            "text-text-secondary",
+            "dark:text-slate-300"
+          );
+          uploadStatus.classList.add(
+            "text-green-600",
+            "dark:text-green-400"
+          );
+
+          // Clear form
+          uploadCause.value = "";
+          uploadDate.value = "";
+          uploadLocation.value = "";
+          uploadDescription.value = "";
+          uploadPhoto.value = "";
+        } catch (err) {
+          console.error(err);
+          uploadStatus.textContent = "Server error. Please try again.";
+          uploadStatus.classList.remove(
+            "text-text-secondary",
+            "dark:text-slate-300"
+          );
+          uploadStatus.classList.add("text-red-600", "dark:text-red-400");
+        }
+      });
+
+      // ==========================
+      // LOGIN / SIGNUP PASSWORD TOGGLES
+      // ==========================
+      if (loginPasswordToggle) {
+        loginPasswordToggle.addEventListener("click", () => {
+          if (loginPassword.type === "password") {
+            loginPassword.type = "text";
+            loginPasswordToggle.textContent = "visibility_off";
+          } else {
+            loginPassword.type = "password";
+            loginPasswordToggle.textContent = "visibility";
+          }
+        });
+      }
+
+      if (signupPasswordToggle) {
+        signupPasswordToggle.addEventListener("click", () => {
+          const span = signupPasswordToggle.querySelector(
+            ".material-symbols-outlined"
+          );
+          if (signupPassword.type === "password") {
+            signupPassword.type = "text";
+            if (span) span.textContent = "visibility";
+          } else {
+            signupPassword.type = "password";
+            if (span) span.textContent = "visibility_off";
+          }
+        });
+      }
+
+      // ==========================
+      // PROFILE VIEW
+      // ==========================
+      homeProfileBtn.addEventListener("click", () => {
+        loadProfileView();
+        showView("profile");
+      });
+
+      profileBackBtn.addEventListener("click", () => {
+        showView("home");
+      });
+
+      profilePhotoEditBtn.addEventListener("click", () => {
+        profilePhotoInput.click();
+      });
+
+      profilePhotoInput.addEventListener("change", () => {
+        const file = profilePhotoInput.files[0];
+        if (!file) return;
+        profilePhotoFile = file;
+        const url = URL.createObjectURL(file);
+        profilePhoto.style.backgroundImage = `url('${url}')`;
+      });
+
+      profileSaveBtn.addEventListener("click", async () => {
+        const user = getCurrentUser();
+        if (!user) {
+          showView("login");
+          return;
+        }
+
+        const name = profileNameInput.value.trim();
+        if (!name) {
+          setProfileStatus("Name cannot be empty.", true);
+          return;
+        }
+
+        const form = new FormData();
+        form.append("name", name);
+        if (profilePhotoFile) {
+          form.append("photo", profilePhotoFile);
+        }
+
+        setProfileStatus("Saving...", false);
+
+        try {
+          const res = await fetch(
+            `${API_BASE_URL}/users/${user._id}/profile`,
+            {
+              method: "PUT",
+              body: form,
+            }
+          );
+          const data = await res.json();
+          if (!res.ok) {
+            setProfileStatus(data.error || "Failed to save profile.", true);
+            return;
+          }
+
+          // Update local user
+          setCurrentUser(data.user);
+          loadProfileView();
+          setProfileStatus("Profile updated successfully.", false);
+        } catch (err) {
+          console.error(err);
+          setProfileStatus("Server error. Please try again.", true);
+        }
+      });
+
+      profileLogoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("oceanid_user");
+        // optionally clear local chats/threads
+        // localStorage keys starting with oceanid_chat_ / oceanid_recent_threads_
+        Object.keys(localStorage).forEach((k) => {
+          if (
+            k.startsWith("oceanid_chat_") ||
+            k.startsWith("oceanid_recent_threads_")
+          ) {
+            localStorage.removeItem(k);
+          }
+        });
+        showView("login");
+      });
+
+      // ==========================
+      // GLOBAL NAV EVENTS
+      // ==========================
+      navHome.addEventListener("click", () => showView("home"));
+      navAlerts.addEventListener("click", () => showView("alerts"));
+      navUpload.addEventListener("click", () => showView("upload"));
+      navSMS.addEventListener("click", () => showView("messages"));
+      navCall.addEventListener("click", () => showView("call"));
+
+      // ==========================
+      // USERS DIRECTORY (for SMS + CALL)
+      // ==========================
+      let allUsers = [];
+      let usersMode = null; // 'sms' or 'call'
+      let usersReturnView = "messages";
+
+      async function loadUsersList() {
+        usersList.innerHTML =
+          '<p class="text-sm text-slate-500 dark:text-slate-400 px-1">Loading users...</p>';
+        try {
+          const res = await fetch(`${API_BASE_URL}/users`);
+          const data = await res.json();
+          allUsers = data.users || [];
+          renderUsersList();
+        } catch (err) {
+          console.error(err);
+          usersList.innerHTML =
+            '<p class="text-sm text-red-600 dark:text-red-400 px-1">Failed to load users.</p>';
+        }
+      }
+
+      function avatarUrlFromUser(u) {
+        if (u.photo) {
+          return u.photo.startsWith("/uploads")
+            ? `${API_BASE_URL}${u.photo}`
+            : u.photo;
+        }
+        const name = u.name || u.mobile || "User";
+        return `https://ui-avatars.com/api/?name=${encodeURIComponent(
+          name
+        )}&background=007BFF&color=fff`;
+      }
+
+      function renderUsersList(filterText = "") {
+        const me = getCurrentUser();
+        const filter = filterText.toLowerCase();
+        const list = allUsers.filter((u) => {
+          // hide current user from directory
+          if (me && me.mobile === u.mobile) return false;
+          if (!filter) return true;
+          return (
+            (u.name && u.name.toLowerCase().includes(filter)) ||
+            (u.mobile && u.mobile.toLowerCase().includes(filter))
+          );
+        });
+
+        if (!list.length) {
+          usersList.innerHTML =
+            '<p class="text-sm text-slate-500 dark:text-slate-400 px-1">No users found.</p>';
+          return;
+        }
+
+        usersList.innerHTML = list
+          .map((u) => {
+            const avatarUrl = avatarUrlFromUser(u);
+            const name = u.name || "Oceanid User";
+            const mobile = u.mobile || "";
+            return `
+              <button
+                type="button"
+                class="flex items-center gap-3 px-2 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 w-full text-left"
+                data-user-mobile="${mobile}"
+                data-user-name="${name.replace(/"/g, "&quot;")}"
+                data-user-photo="${avatarUrl.replace(/"/g, "&quot;")}"
+              >
+                <div
+                  class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10"
+                  style="background-image:url('${avatarUrl}');"
+                ></div>
+                <div class="flex flex-col">
+                  <span class="text-sm font-medium text-slate-900 dark:text-slate-50">${name}</span>
+                  <span class="text-xs text-slate-500 dark:text-slate-400">${mobile}</span>
+                </div>
+              </button>
+            `;
+          })
+          .join("");
+      }
+
+      usersSearch.addEventListener("input", () => {
+        renderUsersList(usersSearch.value.trim());
+      });
+
+      usersBackBtn.addEventListener("click", () => {
+        showView(usersReturnView || "messages");
+      });
+
+      usersList.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-user-mobile]");
+        if (!btn) return;
+
+        const mobile = btn.dataset.userMobile;
+        const name = btn.dataset.userName;
+        const photo = btn.dataset.userPhoto;
+
+        if (usersMode === "sms") {
+          openChat(mobile, name, photo);
+        } else if (usersMode === "call") {
+          startOutgoingCall(mobile, name, photo);
+        }
+      });
+
+      // ==========================
+      // MESSAGES THREAD LIST
+      // ==========================
+      let chatCurrentMessages = [];
+      let activeChatPhoto = null;
+
+      async function loadRecentThreads() {
+        const me = getCurrentUser();
+        if (!me) {
+          messagesList.innerHTML =
+            '<p class="px-4 pt-3 text-sm text-slate-500 dark:text-slate-400">Please log in to see messages.</p>';
+          return;
+        }
+
+        messagesList.innerHTML =
+          '<p class="px-4 pt-3 text-sm text-slate-500 dark:text-slate-400">Loading conversations...</p>';
+
+        try {
+          const res = await fetch(
+            `${API_BASE_URL}/messages/recent/${encodeURIComponent(me.mobile)}`
+          );
+          const data = await res.json();
+          const threads = data.threads || [];
+
+          if (!threads.length) {
+            messagesList.innerHTML =
+              '<p class="px-4 pt-3 text-sm text-slate-500 dark:text-slate-400">No conversations yet. Start a new chat!</p>';
+            return;
+          }
+
+          messagesList.innerHTML = threads
+            .map((t) => {
+              const mobile = t.contactMobile;
+              const name =
+                t.contactName && t.contactName !== "Unknown User"
+                  ? t.contactName
+                  : mobile;
+              const avatarUrl = t.contactPhoto
+                ? t.contactPhoto.startsWith("/uploads")
+                  ? `${API_BASE_URL}${t.contactPhoto}`
+                  : t.contactPhoto
+                : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                    name || mobile || "User"
+                  )}&background=007BFF&color=fff`;
+
+              const last = t.lastMessage;
+              const snippet =
+                last && last.content
+                  ? last.content.length > 40
+                    ? last.content.slice(0, 40) + "…"
+                    : last.content
+                  : "";
+              const timeLabel =
+                last && last.createdAt ? formatTimeAgo(last.createdAt) : "";
+
+              return `
+                <button
+                  type="button"
+                  class="flex w-full items-center gap-3 px-2 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
+                  data-thread-mobile="${mobile}"
+                  data-thread-name="${name.replace(/"/g, "&quot;")}"
+                  data-thread-photo="${avatarUrl.replace(/"/g, "&quot;")}"
+                >
+                  <div
+                    class="bg-center bg-no-repeat bg-cover rounded-full h-12 w-12"
+                    style="background-image:url('${avatarUrl}');"
+                  ></div>
+                  <div class="flex flex-col flex-1 min-w-0">
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="text-sm font-semibold text-slate-900 dark:text-slate-50 truncate">
+                        ${name}
+                      </span>
+                      <span class="text-[11px] text-slate-500 dark:text-slate-400 whitespace-nowrap">
+                        ${timeLabel}
+                      </span>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 truncate">
+                      ${snippet}
+                    </p>
+                  </div>
+                </button>
+              `;
+            })
+            .join("");
+        } catch (err) {
+          console.error(err);
+          messagesList.innerHTML =
+            '<p class="px-4 pt-3 text-sm text-red-600 dark:text-red-400">Failed to load messages.</p>';
+        }
+      }
+
+      messagesList.addEventListener("click", (e) => {
+        const item = e.target.closest("[data-thread-mobile]");
+        if (!item) return;
+
+        const mobile = item.dataset.threadMobile;
+        const name = item.dataset.threadName;
+        const photo = item.dataset.threadPhoto;
+        openChat(mobile, name, photo);
+      });
+
+      smsAddBtn.addEventListener("click", () => {
+        usersMode = "sms";
+        usersReturnView = "messages";
+        usersSearch.value = "";
+        loadUsersList();
+        showView("users");
+      });
+
+      // ==========================
+      // CHAT VIEW
+      // ==========================
+      function renderChatMessages(messages) {
+        const me = getCurrentUser();
+        if (!me) return;
+        chatMessages.innerHTML = messages
+          .map((m) => {
+            const mine = m.senderMobile === me.mobile;
+            const timeLabel = m.createdAt
+              ? new Date(m.createdAt).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              : "";
+            if (mine) {
+              return `
+                <div class="flex justify-end">
+                  <div class="max-w-[80%] rounded-2xl rounded-br-sm bg-primary text-white px-3 py-2 text-sm mb-2">
+                    <div>${m.content}</div>
+                    <div class="mt-1 text-[10px] text-white/80 text-right">
+                      ${timeLabel}
+                    </div>
+                  </div>
+                </div>
+              `;
+            } else {
+              return `
+                <div class="flex justify-start">
+                  <div class="max-w-[80%] rounded-2xl rounded-bl-sm bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-50 px-3 py-2 text-sm mb-2">
+                    <div>${m.content}</div>
+                    <div class="mt-1 text-[10px] text-slate-500 dark:text-slate-400 text-right">
+                      ${timeLabel}
+                    </div>
+                  </div>
+                </div>
+              `;
+            }
+          })
+          .join("");
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      async function loadChatMessages(contactMobile) {
+        const me = getCurrentUser();
+        if (!me || !contactMobile) return;
+
+        try {
+          const res = await fetch(
+            `${API_BASE_URL}/messages/thread?userMobile=${encodeURIComponent(
+              me.mobile
+            )}&contactMobile=${encodeURIComponent(contactMobile)}`
+          );
+          const data = await res.json();
+          chatCurrentMessages = data.messages || [];
+          renderChatMessages(chatCurrentMessages);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      function openChat(contactMobile, contactName, contactPhoto) {
+        activeChatMobile = contactMobile;
+        activeChatName = contactName || contactMobile;
+        activeChatPhoto = contactPhoto || null;
+
+        chatHeaderName.textContent = activeChatName;
+        chatHeaderNumber.textContent = contactMobile || "";
+
+        const avatarUrl =
+          contactPhoto ||
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            activeChatName || contactMobile || "User"
+          )}&background=007BFF&color=fff`;
+        chatHeaderAvatar.style.backgroundImage = `url('${avatarUrl}')`;
+
+        showView("chat");
+        loadChatMessages(contactMobile);
+      }
+
+      async function sendCurrentMessage() {
+        const me = getCurrentUser();
+        if (!me || !activeChatMobile) return;
+
+        const content = chatInput.value.trim();
+        if (!content) return;
+
+        chatInput.value = "";
+
+        try {
+          const res = await fetch(`${API_BASE_URL}/messages`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              senderMobile: me.mobile,
+              receiverMobile: activeChatMobile,
+              content,
+            }),
+          });
+
+          const data = await res.json();
+          if (!res.ok) {
+            console.error("Message send failed", data.error);
+            return;
+          }
+
+          const msg = data.data || {
+            senderMobile: me.mobile,
+            receiverMobile: activeChatMobile,
+            content,
+            createdAt: new Date().toISOString(),
+          };
+
+          chatCurrentMessages.push(msg);
+          renderChatMessages(chatCurrentMessages);
+
+          // Also update local cache (optional)
+          saveChatToLocal(me.mobile, activeChatMobile, chatCurrentMessages);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      chatSendBtn.addEventListener("click", () => {
+        sendCurrentMessage();
+      });
+
+      chatInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          sendCurrentMessage();
+        }
+      });
+
+      chatBackBtn.addEventListener("click", () => {
+        showView("messages");
+      });
+
+      // Call from chat header
+      chatCallBtn.addEventListener("click", () => {
+        if (!activeChatMobile) return;
+        startOutgoingCall(activeChatMobile, activeChatName, activeChatPhoto);
+      });
+
+      // ==========================
+      // CALL VIEW: DIALPAD + ADD CALL (USERS)
+      // ==========================
+      callDialToggle.addEventListener("click", () => {
+        const hidden = callDialpad.classList.contains("hidden");
+        if (hidden) {
+          callDialpad.classList.remove("hidden");
+        } else {
+          callDialpad.classList.add("hidden");
+        }
+      });
+
+      // Dialpad digits
+      document.querySelectorAll("[data-digit]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const digit = btn.getAttribute("data-digit");
+          dialInput.value = (dialInput.value || "") + digit;
+        });
+      });
+
+      dialBackspace.addEventListener("click", () => {
+        dialInput.value = dialInput.value.slice(0, -1);
+      });
+
+      dialCallBtn.addEventListener("click", () => {
+        const num = dialInput.value.trim();
+        if (!num) return;
+        startOutgoingCall(num, num, null);
+      });
+
+      callAddBtn.addEventListener("click", () => {
+        usersMode = "call";
+        usersReturnView = "call";
+        usersSearch.value = "";
+        loadUsersList();
+        showView("users");
+      });
+
+      // ==========================
+      // INITIALIZE APP
+      // ==========================
+      (function init() {
+        const user = getCurrentUser();
+        if (user) {
+          showView("home");
+          registerSocketForCurrentUser();
+        } else {
+          showView("login");
+        }
+      })();
+    </script>
+  </body>
+</html>
