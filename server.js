@@ -8,13 +8,14 @@ import path from "path";
 import fs from "fs";
 import http from "http";
 import { Server as SocketIOServer } from "socket.io";
-import { fileURLToPath } from "url";
+
 
 // ==========================================
 // ESM __dirname Fix (for import syntax)
 // ==========================================
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// use __dirname directly
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 // ==========================================
 // Ensure uploads folder exists
