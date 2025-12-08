@@ -1,11 +1,10 @@
 {
-  "type": "module",
   "name": "oceanid",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "keywords": [],
@@ -35,6 +34,5 @@
   "bugs": {
     "url": "https://github.com/gokulchowdry2007-hub/oceanid/issues"
   },
-  "homepage": "https://github.com/gokulchowdry2007-hub/oceanid#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/gokulchowdry2007-hub/oceanid#readme"
 }

@@ -1,4 +1,4 @@
-// server.js  (ESM version)
+// server.js (FULL BACKEND, ESM VERSION)
 
 import express from "express";
 import mongoose from "mongoose";
@@ -22,8 +22,18 @@ const __dirname = path.dirname(__filename);
 // ==========================================
 const app = express();
 
-app.use(cors());
+// CORS – adjust origins if needed (for Vercel/frontend)
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:5500"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
+
 app.use(bodyParser.json());
+
+// Serve uploads (images)
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ==========================================
 // Ensure uploads folder exists
@@ -33,20 +43,16 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-// Serve uploads
-app.use("/uploads", express.static(uploadsDir));
-
 // ==========================================
 // MongoDB Connect
 // ==========================================
-// For local: fallback to mongodb://127.0.0.1:27017/oceanid_app
-// For Vercel: set MONGODB_URI in Environment Variables
-const MONGO_URI =
+// For Vercel: set MONGODB_URI in environment variables
+const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/oceanid_app";
 
 mongoose
-  .connect(MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected (oceanid_app)"))
+  .connect(MONGODB_URI)
+  .then(() => console.log("✅ MongoDB Connected:", MONGODB_URI))
   .catch((err) => console.error("❌ Mongo Error:", err));
 
 // ==========================================
@@ -303,6 +309,7 @@ app.get("/photos/:id", async (req, res) => {
 // ==========================================
 // AUTH ROUTES (PENDING REPORTS)
 // ==========================================
+
 app.post("/auth", async (req, res) => {
   try {
     const { user_number, cause_of_action, description, location, date } =
@@ -511,7 +518,7 @@ app.post("/messages", async (req, res) => {
   }
 });
 
-// GET /messages/thread
+// GET /messages/thread and /messages/conversation for compatibility
 app.get(["/messages/thread", "/messages/conversation"], async (req, res) => {
   try {
     const userMobile = req.query.userMobile || req.query.user1;
@@ -638,7 +645,7 @@ app.get("/messages/recent/:mobile", async (req, res) => {
 // CALL LOG ROUTES
 // ==========================================
 
-// POST /calls/log
+// POST /calls/log  (called from frontend when a call ends)
 app.post("/calls/log", async (req, res) => {
   try {
     const {
@@ -675,7 +682,7 @@ app.post("/calls/log", async (req, res) => {
   }
 });
 
-// GET /calls/recent/:mobile
+// GET /calls/recent/:mobile  (for Recents list in Call page)
 app.get("/calls/recent/:mobile", async (req, res) => {
   try {
     const userMobile = req.params.mobile;
@@ -826,6 +833,3 @@ const PORT = process.env.PORT || 3000;
 httpServer.listen(PORT, () =>
   console.log(`🚀 Server + Socket.IO running on port ${PORT}`)
 );
-
-// For some platforms (like Vercel), it can help to export the app
-export default app;
