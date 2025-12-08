@@ -1,19 +1,29 @@
-// server.js  (CommonJS version)
+// server.js  (ESM version)
 
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const multer = require("multer");
-const cors = require("cors");
-const path = require("path");
-const fs = require("fs");
-const http = require("http");
-const { Server: SocketIOServer } = require("socket.io");
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import multer from "multer";
+import cors from "cors";
+import path from "path";
+import fs from "fs";
+import http from "http";
+import { Server as SocketIOServer } from "socket.io";
+import { fileURLToPath } from "url";
+
+// ==========================================
+// ESM __dirname / __filename
+// ==========================================
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // ==========================================
 // Setup Express App
 // ==========================================
 const app = express();
+
+app.use(cors());
+app.use(bodyParser.json());
 
 // ==========================================
 // Ensure uploads folder exists
@@ -23,18 +33,19 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-app.use(cors());
-app.use(bodyParser.json());
-app.use("/uploads", express.static(uploadsDir)); // serve image files
+// Serve uploads
+app.use("/uploads", express.static(uploadsDir));
 
 // ==========================================
 // MongoDB Connect
 // ==========================================
-const MONGODB_URI =
+// For local: fallback to mongodb://127.0.0.1:27017/oceanid_app
+// For Vercel: set MONGODB_URI in Environment Variables
+const MONGO_URI =
   process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/oceanid_app";
 
 mongoose
-  .connect(MONGODB_URI)
+  .connect(MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected (oceanid_app)"))
   .catch((err) => console.error("❌ Mongo Error:", err));
 
@@ -234,7 +245,6 @@ app.put("/users/:id/profile", upload.single("photo"), async (req, res) => {
 // ==========================================
 // PHOTO ROUTES (for approved feed)
 // ==========================================
-
 app.post("/photos", upload.single("img"), async (req, res) => {
   try {
     const {
@@ -293,7 +303,6 @@ app.get("/photos/:id", async (req, res) => {
 // ==========================================
 // AUTH ROUTES (PENDING REPORTS)
 // ==========================================
-
 app.post("/auth", async (req, res) => {
   try {
     const { user_number, cause_of_action, description, location, date } =
@@ -427,7 +436,6 @@ app.post("/auth/reject", async (req, res) => {
 // ==========================================
 // CLIMATE ROUTES
 // ==========================================
-
 app.post("/climate", async (req, res) => {
   try {
     const { cause_of_action, date, description, location } = req.body;
@@ -474,7 +482,6 @@ app.get("/climate/:id", async (req, res) => {
 
 // ==========================================
 // MESSAGE ROUTES (SMS CHAT)
-// supports both camelCase & snake_case body keys
 // ==========================================
 
 // POST /messages
@@ -504,7 +511,7 @@ app.post("/messages", async (req, res) => {
   }
 });
 
-// GET /messages/thread and /messages/conversation for compatibility
+// GET /messages/thread
 app.get(["/messages/thread", "/messages/conversation"], async (req, res) => {
   try {
     const userMobile = req.query.userMobile || req.query.user1;
@@ -631,7 +638,7 @@ app.get("/messages/recent/:mobile", async (req, res) => {
 // CALL LOG ROUTES
 // ==========================================
 
-// POST /calls/log  (called from frontend when a call ends)
+// POST /calls/log
 app.post("/calls/log", async (req, res) => {
   try {
     const {
@@ -668,7 +675,7 @@ app.post("/calls/log", async (req, res) => {
   }
 });
 
-// GET /calls/recent/:mobile  (for Recents list in Call page)
+// GET /calls/recent/:mobile
 app.get("/calls/recent/:mobile", async (req, res) => {
   try {
     const userMobile = req.params.mobile;
@@ -819,3 +826,6 @@ const PORT = process.env.PORT || 3000;
 httpServer.listen(PORT, () =>
   console.log(`🚀 Server + Socket.IO running on port ${PORT}`)
 );
+
+// For some platforms (like Vercel), it can help to export the app
+export default app;
