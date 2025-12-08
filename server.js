@@ -8,14 +8,13 @@ import path from "path";
 import fs from "fs";
 import http from "http";
 import { Server as SocketIOServer } from "socket.io";
-
+import { fileURLToPath } from "url";
 
 // ==========================================
-// ESM __dirname Fix (for import syntax)
+// ESM __dirname / __filename fix
 // ==========================================
-// use __dirname directly
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // ==========================================
 // Ensure uploads folder exists
@@ -32,13 +31,17 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // serve image files
+app.use("/uploads", express.static(uploadsDir)); // serve uploaded files
 
 // ==========================================
 // MongoDB Connect
+//  - use env variable in production
 // ==========================================
+const mongoUri =
+  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/oceanid_app";
+
 mongoose
-  .connect("mongodb://127.0.0.1:27017/oceanid_app")
+  .connect(mongoUri)
   .then(() => console.log("✅ MongoDB Connected (oceanid_app)"))
   .catch((err) => console.error("❌ Mongo Error:", err));
 
@@ -478,7 +481,6 @@ app.get("/climate/:id", async (req, res) => {
 
 // ==========================================
 // MESSAGE ROUTES (SMS CHAT)
-// supports both camelCase & snake_case body keys
 // ==========================================
 
 // POST /messages
@@ -508,7 +510,7 @@ app.post("/messages", async (req, res) => {
   }
 });
 
-// GET /messages/thread and /messages/conversation for compatibility
+// GET /messages/thread and /messages/conversation
 app.get(["/messages/thread", "/messages/conversation"], async (req, res) => {
   try {
     const userMobile = req.query.userMobile || req.query.user1;
