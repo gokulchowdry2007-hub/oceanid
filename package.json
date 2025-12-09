@@ -13,5 +13,18 @@
     "mongoose": "^8.8.1",
     "multer": "^1.4.5-lts.1",
     "socket.io": "^4.8.1"
-  }
+  },
+  "description": "",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gokulchowdry2007-hub/oceanid.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gokulchowdry2007-hub/oceanid/issues"
+  },
+  "homepage": "https://github.com/gokulchowdry2007-hub/oceanid#readme"
 }
