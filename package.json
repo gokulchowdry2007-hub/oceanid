@@ -9,13 +9,13 @@
   "dependencies": {
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^4.21.2",
     "mongoose": "^8.8.1",
     "multer": "^1.4.5-lts.1",
     "socket.io": "^4.8.1"
   },
   "description": "",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gokulchowdry2007-hub/oceanid.git"

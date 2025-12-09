@@ -10,6 +10,12 @@ import fs from "fs";
 import http from "http";
 import { Server as SocketIOServer } from "socket.io";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+
+// ==========================================
+// Load .env
+// ==========================================
+dotenv.config();
 
 // ==========================================
 // ESM __dirname Setup
@@ -47,13 +53,24 @@ app.use(express.static(path.join(__dirname, "public")));
 // ==========================================
 // MongoDB Connect
 // ==========================================
+// IMPORTANT: make sure this matches your Compass URI
 const MONGO_URI =
   process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/oceanid_app";
 
-mongoose
-  .connect(MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected:", MONGO_URI))
-  .catch((err) => console.error("❌ Mongo Error:", err));
+mongoose.set("strictQuery", true);
+
+async function connectDB() {
+  try {
+    console.log("⏳ Connecting to MongoDB:", MONGO_URI);
+    await mongoose.connect(MONGO_URI, {
+      serverSelectionTimeoutMS: 10000, // 10 seconds
+    });
+    console.log("✅ MongoDB Connected");
+  } catch (err) {
+    console.error("❌ MongoDB connection error:", err.message);
+    process.exit(1); // stop server if DB can’t connect
+  }
+}
 
 // ==========================================
 // Multer Image Upload Setup
@@ -350,8 +367,6 @@ app.get("/auth", async (req, res) => {
   }
 });
 
-// approve / reject routes omitted here for brevity, you can keep them if you want
-
 // ==========================================
 // CLIMATE ROUTES
 // ==========================================
@@ -496,12 +511,65 @@ app.get("/messages/recent/:mobile", async (req, res) => {
 });
 
 // ==========================================
-// CALL LOG ROUTES (same as before)
+// CALL LOG ROUTES (basic example)
 // ==========================================
-// (you can keep your /calls/log and /calls/recent/:mobile code here)
+
+app.post("/calls/log", async (req, res) => {
+  try {
+    const {
+      callerMobile,
+      receiverMobile,
+      direction,
+      status,
+      startedAt,
+      endedAt,
+      durationSeconds,
+    } = req.body;
+
+    if (!callerMobile || !receiverMobile || !direction) {
+      return res.status(400).json({
+        error: "callerMobile, receiverMobile, and direction are required",
+      });
+    }
+
+    const log = new CallLog({
+      callerMobile,
+      receiverMobile,
+      direction,
+      status,
+      startedAt,
+      endedAt,
+      durationSeconds,
+    });
+
+    await log.save();
+    res.json({ message: "Call log saved", log });
+  } catch (err) {
+    console.error("Call log error:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/calls/recent/:mobile", async (req, res) => {
+  try {
+    const mobile = req.params.mobile;
+    if (!mobile) {
+      return res.status(400).json({ error: "mobile is required" });
+    }
+
+    const logs = await CallLog.find({
+      $or: [{ callerMobile: mobile }, { receiverMobile: mobile }],
+    }).sort({ createdAt: -1 });
+
+    res.json({ logs });
+  } catch (err) {
+    console.error("Get calls error:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // ==========================================
-// ROOT: serve index.html (NO "backend is running" anymore)
+// ROOT: serve index.html
 // ==========================================
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
@@ -572,9 +640,12 @@ io.on("connection", (socket) => {
 });
 
 // ==========================================
-// START SERVER
+// START SERVER (after DB connected)
 // ==========================================
 const PORT = process.env.PORT || 3000;
-httpServer.listen(PORT, () =>
-  console.log(`🚀 Server + Socket.IO running on port ${PORT}`)
-);
+
+connectDB().then(() => {
+  httpServer.listen(PORT, () => {
+    console.log(`🚀 Server + Socket.IO running on port ${PORT}`);
+  });
+});
