@@ -1,4 +1,4 @@
-// server.js (FULL BACKEND, ESM VERSION)
+// server.js (ESM)
 
 import express from "express";
 import mongoose from "mongoose";
@@ -12,28 +12,10 @@ import { Server as SocketIOServer } from "socket.io";
 import { fileURLToPath } from "url";
 
 // ==========================================
-// ESM __dirname / __filename
+// ESM __dirname Setup
 // ==========================================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// ==========================================
-// Setup Express App
-// ==========================================
-const app = express();
-
-// CORS – adjust origins if needed (for Vercel/frontend)
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "http://localhost:5500"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
-
-app.use(bodyParser.json());
-
-// Serve uploads (images)
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ==========================================
 // Ensure uploads folder exists
@@ -44,15 +26,28 @@ if (!fs.existsSync(uploadsDir)) {
 }
 
 // ==========================================
+// Setup Express App
+// ==========================================
+const app = express();
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://127.0.0.1:5500", "http://localhost:5500"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
+app.use(bodyParser.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // serve image files
+
+// ==========================================
 // MongoDB Connect
 // ==========================================
-// For Vercel: set MONGODB_URI in environment variables
-const MONGODB_URI =
+const MONGO_URI =
   process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/oceanid_app";
 
 mongoose
-  .connect(MONGODB_URI)
-  .then(() => console.log("✅ MongoDB Connected:", MONGODB_URI))
+  .connect(MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected:", MONGO_URI))
   .catch((err) => console.error("❌ Mongo Error:", err));
 
 // ==========================================
@@ -251,6 +246,7 @@ app.put("/users/:id/profile", upload.single("photo"), async (req, res) => {
 // ==========================================
 // PHOTO ROUTES (for approved feed)
 // ==========================================
+
 app.post("/photos", upload.single("img"), async (req, res) => {
   try {
     const {
@@ -443,6 +439,7 @@ app.post("/auth/reject", async (req, res) => {
 // ==========================================
 // CLIMATE ROUTES
 // ==========================================
+
 app.post("/climate", async (req, res) => {
   try {
     const { cause_of_action, date, description, location } = req.body;
@@ -489,6 +486,7 @@ app.get("/climate/:id", async (req, res) => {
 
 // ==========================================
 // MESSAGE ROUTES (SMS CHAT)
+// supports both camelCase & snake_case body keys
 // ==========================================
 
 // POST /messages
