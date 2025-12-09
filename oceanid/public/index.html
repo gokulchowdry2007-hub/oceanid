@@ -1094,7 +1094,7 @@
             </div>
           </div>
 
-          <!-- Call list (static examples) -->
+          <!-- Call list (static examples, can be replaced with real logs) -->
           <div id="call-list" class="flex flex-col">
             <div
               class="flex items-center gap-4 bg-background-light dark:bg-background-dark px-4 min-h-[72px] py-2 justify-between"
@@ -1592,12 +1592,13 @@
       </nav>
     </div>
 
-    <!-- Socket.IO from backend -->
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <!-- Socket.IO from backend (same origin) -->
+    <script src="/socket.io/socket.io.js"></script>
 
     <!-- ============== JS NAVIGATION + API CALLS + WEBRTC ============== -->
     <script>
-      const API_BASE_URL = "http://localhost:3000";
+      // Same-origin API (backend and frontend served from same domain/port)
+      const API_BASE_URL = "";
 
       const loginView = document.getElementById("login-view");
       const signupView = document.getElementById("signup-view");
@@ -1739,7 +1740,7 @@
       // ==========================
       // WebRTC + Socket.IO Setup
       // ==========================
-      const socket = io(API_BASE_URL, { transports: ["websocket"] });
+      const socket = io(API_BASE_URL || undefined, { transports: ["websocket"] });
 
       const ICE_SERVERS = {
         iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
@@ -2458,7 +2459,10 @@
         if (isError) {
           profileStatus.classList.add("text-red-600", "dark:text-red-400");
         } else {
-          profileStatus.classList.add("text-green-600", "dark:text-green-400");
+          profileStatus.classList.add(
+            "text-green-600",
+            "dark:text-green-400"
+          );
         }
       }
 
@@ -2589,7 +2593,7 @@
         }
       });
 
-            // ==========================
+      // ==========================
       // Upload → POST /auth/upload
       // ==========================
       uploadBtn.addEventListener("click", async () => {
@@ -2600,7 +2604,9 @@
           "text-red-600",
           "text-green-600",
           "dark:text-red-400",
-          "dark:text-green-400"
+          "dark:text-green-400",
+          "text-text-secondary",
+          "dark:text-slate-300"
         );
 
         if (!currentUser) {

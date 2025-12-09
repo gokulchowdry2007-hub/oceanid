@@ -30,14 +30,21 @@ if (!fs.existsSync(uploadsDir)) {
 // ==========================================
 const app = express();
 
+// CORS – for deployment you can relax to "*" or configure FRONTEND_ORIGIN
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://127.0.0.1:5500", "http://localhost:5500"],
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
+
 app.use(bodyParser.json());
-app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // serve image files
+
+// Serve uploaded images
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Serve frontend static files from /public
+app.use(express.static(path.join(__dirname, "public")));
 
 // ==========================================
 // MongoDB Connect
@@ -486,7 +493,6 @@ app.get("/climate/:id", async (req, res) => {
 
 // ==========================================
 // MESSAGE ROUTES (SMS CHAT)
-// supports both camelCase & snake_case body keys
 // ==========================================
 
 // POST /messages
@@ -516,7 +522,7 @@ app.post("/messages", async (req, res) => {
   }
 });
 
-// GET /messages/thread and /messages/conversation for compatibility
+// GET /messages/thread and /messages/conversation
 app.get(["/messages/thread", "/messages/conversation"], async (req, res) => {
   try {
     const userMobile = req.query.userMobile || req.query.user1;
@@ -752,10 +758,10 @@ app.get("/calls/recent/:mobile", async (req, res) => {
 });
 
 // ==========================================
-// ROOT CHECK
+// ROOT: serve index.html
 // ==========================================
 app.get("/", (req, res) => {
-  res.send("✅ Oceanid backend is running");
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // ==========================================
