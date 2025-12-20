@@ -55,7 +55,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // ==========================================
 // IMPORTANT: make sure this matches your Compass URI
 const MONGO_URI =
-  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/oceanid_app";
+  process.env.MONGODB_URI || "mongodb+srv://gokulchowdrychowdry_db_user:NETO4xwPgJGCFJcP@cluster0.mw5pvmu.mongodb.net/";
 
 mongoose.set("strictQuery", true);
 
