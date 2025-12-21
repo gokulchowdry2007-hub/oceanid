@@ -8,14 +8,6 @@
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-    <!-- Socket.IO -->
-    <script src="/socket.io/socket.io.js"></script>
-    <!-- or CDN version -->
-
-    <!-- Your custom JS -->
-    <script src="script.js"></script>
-
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1600,13 +1592,20 @@
       </nav>
     </div>
 
-    <!-- Socket.IO from backend (same origin) -->
-    <script src="/socket.io/socket.io.js"></script>
+    <!-- Socket.IO from backend (loaded from API host) -->
+    <script>
+      (function () {
+        var host = window.__API_BASE_URL__ || (location.hostname === "localhost" ? "http://localhost:3000" : "https://oceanid.onrender.com");
+        document.write('<script src="' + host + '/socket.io/socket.io.js"><\/script>');
+      })();
+    </script>
 
     <!-- ============== JS NAVIGATION + API CALLS + WEBRTC ============== -->
     <script>
-      // Same-origin API (backend and frontend served from same domain/port)
-      const API_BASE_URL = "https://oceanid.onrender.com";
+      // API base can be overridden by defining `window.__API_BASE_URL__` at runtime
+      // Defaults to localhost during local dev, otherwise points to the hosted API.
+      const API_BASE_URL =
+        window.__API_BASE_URL__ || (location.hostname === "localhost" ? "http://localhost:3000" : "https://oceanid.onrender.com");
 
       const loginView = document.getElementById("login-view");
       const signupView = document.getElementById("signup-view");
@@ -1748,7 +1747,7 @@
       // ==========================
       // WebRTC + Socket.IO Setup
       // ==========================
-      const socket = io(API_BASE_URL || undefined, { transports: ["websocket"] });
+      const socket = io(API_BASE_URL, { transports: ["websocket"] });
 
       const ICE_SERVERS = {
         iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
